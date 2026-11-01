@@ -17,6 +17,36 @@ A separação entre empresas deverá ser aplicada no servidor e no banco de dado
 
 A escolha final deverá considerar segurança, manutenção, portabilidade, limites gratuitos e custos quando o produto crescer. Nenhum serviço deve ser contratado sem avaliação prévia das condições.
 
+## Experiência de uso: modo Simples e modo Avançado
+
+**Status: decisão de produto aprovada.**
+
+O SaaS deverá oferecer dois modos de apresentação e interação:
+
+### Modo Simples
+- Será o modo padrão para novas contas e usuários.
+- Mostrará primeiro as tarefas essenciais, com textos claros, poucos passos e navegação direta.
+- Usará configurações recomendadas automaticamente sempre que possível.
+- Manterá opções técnicas, integrações e regras menos frequentes fora do fluxo principal.
+- Deverá permitir concluir as tarefas comuns sem exigir conhecimento técnico.
+
+### Modo Avançado
+- Será opcional e poderá ser ativado pelo usuário nas preferências.
+- Disponibilizará configurações adicionais, controles detalhados e informações operacionais para quem precisar.
+- Organizará recursos avançados por área, com explicações curtas e valores recomendados.
+- Não deverá alterar silenciosamente configurações ao ser ativado nem exigir que o usuário configure tudo.
+
+### Regras comuns aos dois modos
+- O usuário poderá alternar entre os modos sem perder dados ou configurações.
+- A preferência de modo deverá ser persistida por usuário, não usada como mecanismo de autorização.
+- Permissões e limites do plano serão sempre aplicados no servidor, independentemente do modo escolhido.
+- O modo Simples não poderá esconder avisos importantes, custos, consentimentos, informações de privacidade ou ações que exijam confirmação.
+- O modo Avançado não poderá conceder privilégios adicionais por si só.
+- A interface deverá usar divulgação progressiva: mostrar o necessário primeiro e revelar detalhes quando solicitados.
+- Os dois modos deverão ser acessíveis, responsivos, traduzíveis e testados com usuários e tarefas reais.
+
+**Diretriz de produto:** o DMRJ Scheduling deverá ser completo por dentro e fácil de usar por fora. A complexidade técnica deve permanecer nos bastidores sempre que possível.
+
 ## Modelo multiempresa
 
 A arquitetura deverá prever:
