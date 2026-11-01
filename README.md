@@ -66,6 +66,7 @@ A arquitetura ainda será detalhada e validada antes da implementação. Consult
 
 - [Planos e preços](docs/PLANS.md)
 - [Arquitetura técnica](docs/ARCHITECTURE.md)
+- [Esquema do banco de dados](docs/DATABASE_SCHEMA.md)
 - [Privacidade e segurança](docs/PRIVACY-SECURITY.md)
 - [Acessibilidade e localização](docs/ACCESSIBILITY-LOCALIZATION.md)
 - [Preparação para lançamento](docs/LAUNCH-READINESS.md)
