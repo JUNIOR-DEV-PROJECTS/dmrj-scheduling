@@ -55,19 +55,19 @@ A privacidade será considerada desde a concepção do produto (Privacy by Desig
 - **Finalidade clara:** informar por que cada dado é coletado e como será utilizado.
 - **Base legal adequada:** documentar a base legal aplicável a cada finalidade, conforme a legislação do país e sem tratar consentimento como única base possível.
 - **Transparência:** disponibilizar avisos e política de privacidade claros, acessíveis e traduzidos quando necessário.
-- **Controle do usuário:** criar procedimentos para solicitações de acesso, correção, exportação, oposição e exclusão de dados, quando aplicáveis.
+- **Direitos dos titulares:** criar procedimentos para receber e responder solicitações de acesso, confirmação, correção, portabilidade ou exportação, oposição, restrição e exclusão, conforme os direitos previstos na legislação aplicável. Os direitos, exceções, prazos e requisitos de identificação variam entre países e não devem ser apresentados como idênticos em todos os mercados.
 - **Retenção limitada:** definir prazos de retenção e eliminar ou anonimizar dados quando deixarem de ser necessários, respeitando obrigações legais.
 - **Segurança:** usar criptografia em trânsito, proteção adequada de dados armazenados, autenticação segura, permissões por função e registros de atividades relevantes.
 - **Separação entre empresas:** impedir que uma empresa, funcionário ou administrador de cliente acesse dados de outra empresa sem autorização.
 - **Acesso restrito:** limitar o acesso interno aos dados pessoais ao mínimo necessário e registrar acessos administrativos sensíveis.
 - **Fornecedores:** identificar serviços terceiros que tratem dados, avaliar sua segurança e documentar responsabilidades e contratos aplicáveis.
-- **Transferência internacional:** avaliar os mecanismos legais necessários antes de transferir dados pessoais entre países.
+- **Transferência internacional:** mapear os países de origem e destino, os fornecedores envolvidos e a localização dos dados. Para dados sujeitos à LGPD, verificar a Resolução CD/ANPD nº 19/2024 e utilizar uma hipótese legal e um mecanismo válido de transferência internacional, quando aplicável. Para dados sujeitos ao GDPR, avaliar as regras de transferência internacional do Capítulo V. Documentar essas transferências na política de privacidade e nos contratos, conforme a lei aplicável.
 - **Incidentes:** manter procedimento para detectar, investigar, registrar e comunicar incidentes de segurança conforme os prazos e exigências legais aplicáveis.
 - **Cookies e rastreamento:** informar o uso de cookies e tecnologias semelhantes e obter consentimento quando exigido.
 - **Dados sensíveis:** evitar coletar informações médicas ou outras categorias sensíveis quando não forem indispensáveis. Se houver necessidade, aplicar proteção reforçada e avaliar requisitos específicos.
 - **Contas e menores:** definir regras de idade, autorização de responsáveis e tratamento de dados de menores conforme os mercados atendidos.
 
-As empresas clientes serão orientadas sobre suas responsabilidades como controladoras dos dados de seus clientes, enquanto a DMRJ Scheduling poderá atuar como operadora em determinadas atividades. Os papéis e obrigações deverão ser definidos nos contratos e no fluxo real de tratamento de dados.
+As funções de controlador, operador ou corresponsável não serão atribuídas automaticamente apenas pelo contrato: deverão refletir quem efetivamente determina as finalidades e os meios de cada tratamento. A DMRJ Scheduling poderá ser controladora dos dados de cadastro, faturamento e segurança da própria plataforma e operadora de dados de agendamento tratados sob instruções da empresa cliente. Os papéis, instruções, responsabilidades e contratos de tratamento deverão ser definidos por atividade.
 
 ## Padrões e requisitos internacionais a avaliar
 
@@ -75,14 +75,29 @@ O projeto será desenvolvido considerando, conforme os países e atividades aten
 
 - GDPR e regras complementares de proteção de dados da União Europeia e do Espaço Econômico Europeu.
 - LGPD do Brasil.
-- Leis de privacidade estaduais e federais aplicáveis nos Estados Unidos e legislações de outros países.
-- OWASP ASVS e boas práticas de desenvolvimento seguro.
+- Leis de privacidade estaduais e federais aplicáveis nos Estados Unidos. Avaliar também COPPA quando houver coleta coberta de dados de crianças menores de 13 anos, e HIPAA ou a FTC Health Breach Notification Rule quando o produto e os participantes estiverem dentro do escopo dessas regras. Elas não se aplicam automaticamente a todo SaaS ou a toda clínica.
+- OWASP Application Security Verification Standard (ASVS) 5.0.0 como referência aberta para requisitos e testes de segurança de aplicações.
 - WCAG 2.2 nível AA como objetivo de acessibilidade.
-- ISO/IEC 27001 e ISO/IEC 27701 como referências para gestão de segurança e privacidade.
+- ISO/IEC 27001:2022 como referência para um sistema de gestão de segurança da informação e ISO/IEC 27701:2025 como referência para gestão de informações de privacidade. A implementação de práticas não equivale a certificação.
 - SOC 2 como possível avaliação independente para atender requisitos de clientes empresariais.
-- PCI DSS caso o escopo de pagamentos venha a envolver dados de cartões; a utilização de um provedor com checkout hospedado pode reduzir o escopo de responsabilidade.
+- PCI DSS conforme o papel da plataforma e o fluxo de pagamento. Um checkout hospedado por provedor pode reduzir o escopo técnico, mas não elimina automaticamente todas as responsabilidades do comerciante ou da plataforma. Será necessário confirmar com o provedor, adquirente ou bandeira quais validações e responsabilidades se aplicam.
 
-A menção a normas e padrões indica referências e objetivos de projeto. Não significa que a plataforma já tenha certificação, auditoria concluída ou conformidade legal comprovada. A aplicabilidade deverá ser validada antes de operar em cada mercado, com apoio jurídico e técnico adequado quando necessário.
+A menção a leis, normas e padrões indica referências a avaliar e objetivos de projeto. Não significa que a plataforma já tenha certificação, auditoria concluída ou conformidade legal comprovada. GDPR e LGPD são leis; WCAG e OWASP ASVS são referências técnicas; ISO 27001 e ISO 27701 são normas de sistemas de gestão; SOC 2 é um exame/relatório de controles, não uma certificação ISO. A aplicabilidade deverá ser validada por mercado, atividade e fluxo real de dados.
+
+## Fontes oficiais de referência
+
+As referências abaixo servem para orientar o desenvolvimento. A versão vigente e a aplicabilidade devem ser rechecadas antes do lançamento.
+
+- [GDPR (Regulamento UE 2016/679), texto oficial EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679)
+- [Lei Geral de Proteção de Dados Pessoais (LGPD), texto atualizado](https://www2.camara.leg.br/legin/fed/lei/2018/lei-13709-14-agosto-2018-787077-normaatualizada-pl.html)
+- [ANPD: Resolução CD/ANPD nº 19/2024 sobre transferências internacionais](https://www.gov.br/anpd/pt-br/acesso-a-informacao/institucional/atos-normativos/regulamentacoes_anpd/resolucao-cd-anpd-no-19-de-23-de-agosto-de-2024)
+- [OWASP ASVS 5.0.0](https://asvs.owasp.org/)
+- [W3C WCAG 2.2](https://www.w3.org/TR/wcag/)
+- [ISO/IEC 27001:2022](https://www.iso.org/standard/27001)
+- [ISO/IEC 27701:2025](https://committee.iso.org/standard/27701)
+- [PCI Security Standards Council: PCI DSS](https://www.pcisecuritystandards.org/standards/pci-dss/)
+- [PCI SSC: responsabilidades quando o processamento é terceirizado](https://www.pcisecuritystandards.org/faqs/does-pci-dss-apply-to-merchants-who-outsource-all-payment-processing-operations-and-never-store-process-or-transmit-cardholder-data/)
+- [FTC: privacidade e segurança para empresas nos Estados Unidos](https://www.ftc.gov/business-guidance/privacy-security)
 
 ## Política de custos durante o desenvolvimento
 
