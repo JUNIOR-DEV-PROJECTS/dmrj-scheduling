@@ -41,21 +41,33 @@ Todos os planos terão período de teste gratuito de 7 dias.
 | Pro | US$ 19,90/mês | US$ 199,00/ano | Até 5 profissionais e 1 unidade |
 | Business | US$ 39,90/mês | US$ 399,00/ano | Até 15 profissionais e 3 unidades |
 
-Os valores anuais equivalem a 10 mensalidades, oferecendo uma economia equivalente a 2 mensalidades em comparação com 12 pagamentos mensais. Essa é a vantagem promocional planejada para o pagamento anual; não será anunciada uma gratuidade adicional de 1 mês além desse desconto.
+**Oferta anual planejada:** o cliente contrata 12 meses de acesso, paga antecipadamente o valor equivalente a 10 mensalidades e recebe os 2 meses restantes sem cobrança adicional. A comparação considera o preço mensal vigente multiplicado por 12, sem desconto adicional ou benefício oculto.
+
+| Plano | Total em 12 mensalidades | Preço anual | Economia equivalente a 2 meses |
+|---|---:|---:|---:|
+| Starter | US$ 118,80 | US$ 99,00 | US$ 19,80 |
+| Pro | US$ 238,80 | US$ 199,00 | US$ 39,80 |
+| Business | US$ 478,80 | US$ 399,00 | US$ 79,80 |
 
 ### Comunicação da oferta anual
 
 Mensagem comercial planejada:
 
-> **Escolha o plano anual e economize!** Pague o equivalente a 10 mensalidades e tenha acesso por 12 meses. Economize o valor de 2 mensalidades ao escolher o pagamento anual.
+> **PLANO ANUAL: 12 MESES DE ACESSO PELO PREÇO DE 10!**
+>
+> Escolha o pagamento anual, pague o equivalente a 10 mensalidades e aproveite 12 meses de acesso. Você ganha 2 meses sem cobrança adicional.
+>
+> **O valor anual é cobrado antecipadamente:** Starter US$ 99,00; Pro US$ 199,00; Business US$ 399,00.
 
-A comunicação deverá:
-- Informar o preço total cobrado antecipadamente, a duração do período contratado e o valor equivalente da economia.
-- Deixar claro que a economia de 2 mensalidades já está incorporada ao preço anual, sem sugerir que existe um mês adicional gratuito.
-- Informar antes da contratação as condições de renovação automática ou manual, a data e o valor da próxima cobrança, quando aplicável, e os meios e efeitos do cancelamento.
-- Apresentar separadamente o teste gratuito de 7 dias e explicar quando e quanto será cobrado após o teste, caso o cliente não cancele.
+Condições que deverão aparecer de forma clara antes da contratação:
+- O período contratado é de 12 meses consecutivos de acesso.
+- O preço anual é pago antecipadamente e corresponde ao valor de 10 mensalidades do respectivo plano.
+- Os 2 meses adicionais fazem parte dos mesmos 12 meses contratados; não são um período extra além dos 12 meses.
+- A economia anunciada é calculada comparando o preço anual com 12 mensalidades pelo preço mensal vigente. Se o preço mensal mudar, os valores comparativos da oferta deverão ser revistos.
+- Informar se a assinatura será renovada automaticamente, a duração e o preço da renovação, quando ocorrerá a cobrança e como cancelar.
+- Apresentar separadamente o teste gratuito de 7 dias, informando quando começa a cobrança e qual valor será cobrado se o cliente não cancelar. O teste não deve ser somado aos 12 meses da oferta anual, a menos que isso seja expressamente definido e informado na contratação.
 - Não usar contagem regressiva, escassez, preço anterior ou alegações promocionais que não sejam verdadeiras e comprováveis.
-- Exibir condições e preços de forma clara e consistente nos idiomas e mercados atendidos, respeitando as regras locais de publicidade, comércio eletrônico, assinaturas e defesa do consumidor.
+- Exibir preços, duração e condições de forma clara nos idiomas e mercados atendidos, respeitando as regras locais de publicidade, comércio eletrônico, assinaturas e defesa do consumidor.
 
 As condições finais de cobrança, renovação, cancelamento, reembolso e tributos ainda deverão ser definidas e validadas para cada mercado antes da venda. Esta descrição é uma diretriz de produto, não uma declaração de conformidade legal universal.
 
