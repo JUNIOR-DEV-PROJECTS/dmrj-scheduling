@@ -344,6 +344,42 @@ Usar restrições CHECK para valores positivos, intervalos válidos e estados pe
 
 Essas decisões devem ser tomadas antes de fechar a primeira migration, porque podem alterar restrições, relacionamentos e regras de autorização.
 
+### Decisão de produto: múltiplas formas de acesso e gerenciamento da reserva
+
+**Status: decisão aprovada pelo usuário; implementação faseada.**
+
+O DMRJ Scheduling deverá oferecer, como produto completo, diferentes formas para o cliente consultar, cancelar e reagendar suas próprias reservas. A empresa poderá habilitar os métodos compatíveis com sua operação e com os países atendidos, sem obrigar todos os clientes a criar uma conta.
+
+Métodos previstos para o SaaS:
+1. **Link seguro por e-mail:** enviado automaticamente após a reserva; método inicial recomendado.
+2. **Código de verificação por e-mail:** código temporário enviado ao endereço informado.
+3. **Código de verificação por SMS:** opção para clientes que preferem confirmar pelo telefone, sujeita à disponibilidade e ao custo do provedor no país.
+4. **WhatsApp:** envio de link ou código por integração oficial e provedor compatível, sujeito a disponibilidade, regras da plataforma e custos.
+5. **Conta opcional do cliente:** área pessoal para consultar e gerenciar reservas, sem tornar a criação de conta obrigatória para agendar.
+
+**Escopo recomendado do MVP:**
+- Implementar primeiro o link seguro por e-mail.
+- Exigir um endereço de e-mail válido e verificado para esse fluxo inicial.
+- Não exigir cadastro, senha ou conta do cliente.
+- Preparar a arquitetura para adicionar os outros métodos sem reestruturar as tabelas principais de agendamentos.
+- Não ativar SMS ou WhatsApp antes de selecionar e avaliar provedores, custos, cobertura internacional, privacidade e requisitos legais.
+
+**Fases posteriores:**
+- Adicionar código temporário por e-mail como alternativa ao link.
+- Adicionar SMS e WhatsApp por integrações independentes, com controle de custos, limites de envio, consentimentos e opção de canal por empresa/país.
+- Adicionar conta opcional do cliente, com autenticação, recuperação de acesso e controles de privacidade.
+
+Requisitos de segurança para todos os métodos:
+- Provar acesso ao canal de contato antes de permitir alterações.
+- Tokens e códigos devem ser imprevisíveis, armazenados de forma protegida, limitados por finalidade e reserva, com validade curta, uso único quando aplicável e revogação.
+- Aplicar rate limiting, proteção contra enumeração de reservas e mensagens que não revelem se um e-mail ou telefone está cadastrado.
+- Nunca usar apenas o número da reserva ou dados pessoais fáceis de adivinhar como autenticação.
+- Autorizar somente ações sobre a reserva correspondente e respeitar os prazos de cancelamento e reagendamento configurados pela empresa.
+- Registrar alterações e tentativas relevantes sem guardar tokens, códigos ou segredos em logs.
+- Disponibilidade de canal, preço, consentimento e requisitos regulatórios devem ser avaliados por país e provedor; não presumir cobertura global nem custo zero.
+
+**Complexidade:** oferecer todos os métodos já na primeira versão seria de complexidade alta, pois exige integrações externas, entregabilidade, custos variáveis, segurança, consentimentos e suporte internacional. Planejar todos desde a arquitetura e lançar em etapas mantém o MVP de complexidade baixa a moderada sem abandonar a visão completa do produto.
+
 ### Decisão aprovada para o MVP: prazos configuráveis por empresa para cancelamento e reagendamento
 
 **Status: decisão registrada.**
