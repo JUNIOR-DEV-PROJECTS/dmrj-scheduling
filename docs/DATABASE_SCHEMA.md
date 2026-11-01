@@ -333,7 +333,7 @@ Usar restrições CHECK para valores positivos, intervalos válidos e estados pe
 
 - Se cada agendamento exige exatamente um profissional no MVP.
 - Se a reserva pública exige confirmação por e-mail, telefone ou outro mecanismo.
-- Se clientes podem cancelar ou remarcar sozinhos e dentro de qual prazo.
+- Como será implementado o acesso seguro do cliente à própria reserva para cancelar ou reagendar.
 - Se a duração do serviço inclui intervalo de preparação ou limpeza.
 - Se haverá intervalo de segurança entre reservas.
 - Se uma unidade poderá ter moeda diferente da empresa.
@@ -343,6 +343,31 @@ Usar restrições CHECK para valores positivos, intervalos válidos e estados pe
 - Qual provedor de pagamento será escolhido no futuro.
 
 Essas decisões devem ser tomadas antes de fechar a primeira migration, porque podem alterar restrições, relacionamentos e regras de autorização.
+
+### Decisão aprovada para o MVP: prazos configuráveis por empresa para cancelamento e reagendamento
+
+**Status: decisão registrada.**
+
+Cada empresa poderá configurar separadamente o prazo mínimo para o cliente cancelar uma reserva e o prazo mínimo para solicitar um reagendamento, sempre contado para trás a partir do horário de início do agendamento.
+
+Configuração inicial recomendada:
+- Prazo padrão para cancelamento: 24 horas.
+- Prazo padrão para reagendamento: 24 horas.
+- Os dois prazos serão independentes e poderão ser alterados pelo administrador da empresa.
+- O valor deverá ser armazenado como quantidade inteira de horas, não como texto livre. Valores iguais a zero poderão representar permissão até o início do agendamento, se essa opção for mantida na interface.
+
+Regras para implementação:
+1. A política pertence à empresa e será aplicada às reservas dessa empresa, inclusive quando ela tiver várias unidades.
+2. A validação será feita no servidor no momento da ação. Ocultar ou desabilitar um botão na interface não substitui essa validação.
+3. O horário de referência será o instante absoluto de início do agendamento (starts_at), respeitando o fuso da unidade apenas para exibição.
+4. Se o prazo permitido tiver passado, o cliente deverá entrar em contato diretamente com a empresa; a empresa continuará responsável por administrar a reserva conforme suas próprias regras e permissões.
+5. Cancelamentos e reagendamentos deverão gerar eventos no histórico, com ator, data e alterações relevantes.
+6. O reagendamento deverá validar novamente profissional, serviço, unidade, disponibilidade e conflitos dentro de uma transação, sem deixar a reserva em estado inconsistente.
+7. A ação pública do cliente deverá usar um mecanismo seguro de acesso à reserva, com token imprevisível, armazenamento protegido, expiração e proteção contra tentativas abusivas. A implementação e o formato desse mecanismo ainda serão especificados e testados.
+
+**Avaliação de complexidade para o MVP: baixa a moderada.** A regra exige duas configurações por empresa, uma tela simples de ajustes, validação centralizada no servidor e testes dos limites de tempo. É mais simples e flexível do que criar regras por serviço, profissional, unidade, tipo de cliente ou exceções individuais, que ficam fora do MVP.
+
+A decisão não define multas, taxas, reembolsos ou políticas legais de cancelamento. Esses termos comerciais deverão ser apresentados claramente pela empresa ao cliente e avaliados conforme a legislação aplicável antes do lançamento.
 
 ### Decisão aprovada para o MVP: um profissional por agendamento
 
