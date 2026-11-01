@@ -33,7 +33,7 @@ A plataforma será multiempresa: cada negócio terá seus próprios dados e conf
 
 ## Planos e preços iniciais
 
-Todos os planos terão período de teste gratuito de 7 dias.
+Está previsto um período de teste gratuito de 7 dias para os planos. As regras de ativação, exigência ou não de cartão e início de eventual cobrança ainda serão definidas antes da implementação e deverão ser informadas claramente ao cliente.
 
 | Plano | Preço mensal | Preço anual (12 meses de acesso) | Economia no anual | Limites planejados |
 |---|---:|---:|---:|---|
@@ -59,7 +59,8 @@ Condições que deverão aparecer de forma clara antes da contratação:
 - Os 2 meses adicionais fazem parte dos mesmos 12 meses contratados; não são um período extra além dos 12 meses.
 - A economia anunciada é calculada comparando o preço anual com 12 mensalidades pelo preço mensal vigente. Se o preço mensal mudar, os valores comparativos da oferta deverão ser revistos.
 - Informar se a assinatura será renovada automaticamente, a duração e o preço da renovação, quando ocorrerá a cobrança e como cancelar.
-- Apresentar separadamente o teste gratuito de 7 dias, informando quando começa a cobrança e qual valor será cobrado se o cliente não cancelar. O teste não deve ser somado aos 12 meses da oferta anual, a menos que isso seja expressamente definido e informado na contratação.
+- Apresentar separadamente o teste gratuito de 7 dias, informando se é necessário cadastrar uma forma de pagamento, quando começa eventual cobrança, qual plano será contratado e o valor exato. A cobrança automática após o teste, se adotada, deverá ser informada antes da adesão e seguir as regras do mercado atendido. O teste não deve ser somado aos 12 meses da oferta anual, a menos que isso seja expressamente definido e informado na contratação.
+- Definir se o teste estará disponível uma única vez por empresa, como serão tratadas contas repetidas ou abusos e quais serão as regras de encerramento do teste.
 - Não usar contagem regressiva, escassez, preço anterior ou alegações promocionais que não sejam verdadeiras e comprováveis.
 - Exibir preços, duração e condições de forma clara nos idiomas e mercados atendidos, respeitando as regras locais de publicidade, comércio eletrônico, assinaturas e defesa do consumidor.
 
@@ -86,10 +87,43 @@ A privacidade será considerada desde a concepção do produto (Privacy by Desig
 - **Transferência internacional:** mapear os países de origem e destino, os fornecedores envolvidos e a localização dos dados. Para dados sujeitos à LGPD, verificar a Resolução CD/ANPD nº 19/2024 e utilizar uma hipótese legal e um mecanismo válido de transferência internacional, quando aplicável. Para dados sujeitos ao GDPR, avaliar as regras de transferência internacional do Capítulo V. Documentar essas transferências na política de privacidade e nos contratos, conforme a lei aplicável.
 - **Incidentes:** manter procedimento para detectar, investigar, registrar e comunicar incidentes de segurança conforme os prazos e exigências legais aplicáveis.
 - **Cookies e rastreamento:** informar o uso de cookies e tecnologias semelhantes e obter consentimento quando exigido.
-- **Dados sensíveis:** evitar coletar informações médicas ou outras categorias sensíveis quando não forem indispensáveis. Se houver necessidade, aplicar proteção reforçada e avaliar requisitos específicos.
+- **Dados sensíveis e informações de saúde:** evitar coletar diagnósticos, prontuários ou detalhes médicos. Um agendamento pode, por si só, revelar informações sensíveis. Quando o tratamento de dados sensíveis for realmente necessário, definir finalidade e base legal apropriadas, restringir campos e acessos, aplicar proteção reforçada, limitar retenção e avaliar obrigações específicas antes de disponibilizar o recurso. Não presumir que toda clínica ou todo uso do sistema esteja automaticamente sujeito à HIPAA.
 - **Contas e menores:** definir regras de idade, autorização de responsáveis e tratamento de dados de menores conforme os mercados atendidos.
 
 As funções de controlador, operador ou corresponsável não serão atribuídas automaticamente apenas pelo contrato: deverão refletir quem efetivamente determina as finalidades e os meios de cada tratamento. A DMRJ Scheduling poderá ser controladora dos dados de cadastro, faturamento e segurança da própria plataforma e operadora de dados de agendamento tratados sob instruções da empresa cliente. Os papéis, instruções, responsabilidades e contratos de tratamento deverão ser definidos por atividade.
+
+## Requisitos técnicos de segurança e isolamento
+
+Os seguintes controles deverão ser especificados, implementados e testados antes do lançamento. A simples inclusão nesta lista não significa que já estejam ativos.
+
+- Aplicar autorização no servidor e no banco de dados, sem confiar apenas em controles visuais da interface.
+- Implementar políticas de acesso por empresa e por função, incluindo regras de Row Level Security (RLS) quando aplicáveis ao banco escolhido.
+- Testar tentativas de leitura, alteração, exclusão e exportação de dados entre empresas, inclusive por alteração manual de identificadores e chamadas diretas à API.
+- Proteger operações administrativas com autenticação forte, privilégios mínimos e revisão periódica de permissões.
+- Registrar operações administrativas e eventos de segurança relevantes, sem armazenar senhas, tokens ou dados pessoais desnecessários nos logs.
+- Proteger segredos e chaves fora do código-fonte e do repositório público; disponibilizá-los somente por mecanismos seguros de configuração.
+- Validar entradas, limitar tentativas e aplicar proteções contra abuso, automação maliciosa e solicitações excessivas.
+- Definir backups, testes periódicos de restauração, monitoramento e procedimento de resposta a incidentes.
+- Incluir testes automatizados de autorização e isolamento multiempresa no processo de desenvolvimento e antes de cada lançamento relevante.
+
+## Requisitos de pagamentos, assinaturas e cobrança
+
+A integração de pagamentos ainda não foi escolhida nem implementada. Antes de selecionar um provedor ou iniciar cobranças, definir e documentar:
+
+- Países atendidos, moedas aceitas, moeda de cobrança e forma de apresentação dos preços.
+- Conversão cambial, tarifas do provedor, tributos, emissão de documentos fiscais e responsabilidades de cada parte.
+- Cobrança mensal e anual, cobrança antecipada do plano anual, início e fim do período contratado e regras de renovação.
+- Período de teste, eventual cadastro de cartão, autorização para cobrança automática e avisos antes do início da cobrança, conforme exigências locais.
+- Cancelamento, reembolso, falhas de pagamento, períodos de tolerância, suspensão e reativação da conta.
+- Segurança do fluxo de pagamento, responsabilidades do provedor e escopo aplicável do PCI DSS.
+
+A plataforma deverá evitar armazenar dados completos de cartão quando um provedor de pagamento puder processá-los diretamente. A escolha de checkout hospedado ou tokenização deverá ser avaliada, sem presumir que isso elimina todas as obrigações aplicáveis.
+
+## Acessibilidade, idiomas e localização
+
+A meta de acessibilidade é WCAG 2.2 nível AA. Para avaliar esse objetivo, deverão ser realizados testes manuais e automatizados, incluindo navegação por teclado, foco visível, contraste, rótulos de campos, mensagens de erro, estrutura de títulos e compatibilidade com leitores de tela. Ferramentas automáticas, isoladamente, não comprovam conformidade.
+
+As versões em português, inglês e espanhol deverão manter equivalência de sentido, especialmente em preços, duração dos planos, renovação, cancelamento, privacidade e consentimentos. Datas, horários, números, moedas e mensagens deverão respeitar a localização configurada. Traduções e textos legais deverão ser revisados antes de cada lançamento em um novo mercado.
 
 ## Padrões e requisitos internacionais a avaliar
 
@@ -160,7 +194,7 @@ Antes do lançamento comercial, revisar e documentar:
 - **GitHub:** versionamento do código.
 - **Vercel:** opção planejada para hospedagem e publicação, sujeita à verificação das condições comerciais e limites do plano escolhido.
 
-A integração de pagamentos e assinaturas será definida em uma etapa posterior. Nenhum provedor de pagamento está integrado neste momento.
+A integração de pagamentos e assinaturas será definida em uma etapa posterior. Nenhum provedor de pagamento está integrado neste momento. A plataforma não deverá iniciar cobranças reais antes da definição e validação dos preços, do período de teste, da renovação, do cancelamento, dos reembolsos, dos tributos e das condições do provedor para cada mercado.
 
 ## Requisitos internacionais
 
