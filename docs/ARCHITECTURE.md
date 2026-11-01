@@ -62,9 +62,10 @@ A plataforma deverá evitar armazenar dados completos de cartão quando o proces
 
 ## Documentos técnicos relacionados
 
+- [Esquema do banco de dados](DATABASE_SCHEMA.md)
 - [Planos e preços](PLANS.md)
 - [Privacidade e segurança](PRIVACY-SECURITY.md)
 - [Acessibilidade e localização](ACCESSIBILITY-LOCALIZATION.md)
 - [Preparação para lançamento](LAUNCH-READINESS.md)
 
-O esquema detalhado do banco de dados será especificado em documento próprio antes da implementação das tabelas e políticas.
+O modelo inicial de dados está descrito em [Esquema do banco de dados](DATABASE_SCHEMA.md). Ele é uma proposta e deverá ser revisado antes da criação das migrations, tabelas e políticas.
