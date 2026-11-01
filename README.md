@@ -41,7 +41,23 @@ Todos os planos terão período de teste gratuito de 7 dias.
 | Pro | US$ 19,90/mês | US$ 199,00/ano | Até 5 profissionais e 1 unidade |
 | Business | US$ 39,90/mês | US$ 399,00/ano | Até 15 profissionais e 3 unidades |
 
-Os valores anuais equivalem a 10 mensalidades, oferecendo o equivalente a 2 meses sem cobrança em comparação com o pagamento mensal.
+Os valores anuais equivalem a 10 mensalidades, oferecendo uma economia equivalente a 2 mensalidades em comparação com 12 pagamentos mensais. Essa é a vantagem promocional planejada para o pagamento anual; não será anunciada uma gratuidade adicional de 1 mês além desse desconto.
+
+### Comunicação da oferta anual
+
+Mensagem comercial planejada:
+
+> **Escolha o plano anual e economize!** Pague o equivalente a 10 mensalidades e tenha acesso por 12 meses. Economize o valor de 2 mensalidades ao escolher o pagamento anual.
+
+A comunicação deverá:
+- Informar o preço total cobrado antecipadamente, a duração do período contratado e o valor equivalente da economia.
+- Deixar claro que a economia de 2 mensalidades já está incorporada ao preço anual, sem sugerir que existe um mês adicional gratuito.
+- Informar antes da contratação as condições de renovação automática ou manual, a data e o valor da próxima cobrança, quando aplicável, e os meios e efeitos do cancelamento.
+- Apresentar separadamente o teste gratuito de 7 dias e explicar quando e quanto será cobrado após o teste, caso o cliente não cancele.
+- Não usar contagem regressiva, escassez, preço anterior ou alegações promocionais que não sejam verdadeiras e comprováveis.
+- Exibir condições e preços de forma clara e consistente nos idiomas e mercados atendidos, respeitando as regras locais de publicidade, comércio eletrônico, assinaturas e defesa do consumidor.
+
+As condições finais de cobrança, renovação, cancelamento, reembolso e tributos ainda deverão ser definidas e validadas para cada mercado antes da venda. Esta descrição é uma diretriz de produto, não uma declaração de conformidade legal universal.
 
 Os recursos e limites acima representam a oferta inicial planejada e poderão ser ajustados antes do lançamento.
 
