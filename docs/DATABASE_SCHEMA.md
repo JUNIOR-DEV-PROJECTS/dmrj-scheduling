@@ -344,6 +344,27 @@ Usar restrições CHECK para valores positivos, intervalos válidos e estados pe
 
 Essas decisões devem ser tomadas antes de fechar a primeira migration, porque podem alterar restrições, relacionamentos e regras de autorização.
 
+### Decisão aprovada para o MVP: um profissional por agendamento
+
+**Status: decisão registrada.**
+
+Na primeira versão do DMRJ Scheduling, cada agendamento terá exatamente um profissional responsável. A reserva deverá referenciar um único `staff_id`, pertencente à mesma empresa e habilitado para executar o serviço na unidade escolhida.
+
+Motivos:
+- Simplifica a experiência de reserva para o cliente e a gestão da agenda.
+- Permite aplicar uma regra clara de prevenção de conflitos por profissional.
+- Reduz a complexidade de disponibilidade, cancelamento, reagendamento e testes concorrentes.
+- Evita introduzir relações muitos-para-muitos entre agendamentos e profissionais antes de existir uma necessidade validada.
+
+Regras para implementação:
+1. O profissional deverá estar ativo e habilitado para o serviço e a unidade selecionados.
+2. A reserva deverá validar a disponibilidade do profissional e da unidade dentro da mesma operação transacional.
+3. A restrição contra sobreposição deverá considerar o profissional, a empresa e os estados que ocupam a agenda.
+4. Não será permitido cadastrar vários profissionais para a mesma reserva no MVP.
+5. Uma evolução futura poderá introduzir recursos reserváveis e uma tabela de participantes do agendamento, por meio de migration própria, sem presumir que essa capacidade exista agora.
+
+Esta decisão não impede que uma empresa tenha muitos profissionais ou várias unidades. Ela limita apenas a quantidade de profissionais responsáveis por uma reserva individual.
+
 ## 15. Limites desta especificação
 
 Este documento é uma proposta de modelagem, não código executável nem prova de segurança. As tabelas, constraints, índices, funções, triggers, policies RLS e migrations ainda precisam ser implementados, revisados e testados.
