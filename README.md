@@ -31,17 +31,19 @@ A plataforma será multiempresa: cada negócio terá seus próprios dados e conf
 - Configuração da moeda usada pela empresa em seus serviços.
 - Estrutura preparada para assinaturas dos planos do SaaS.
 
-## Planos previstos
+## Planos e preços iniciais
 
 Todos os planos terão período de teste gratuito de 7 dias.
 
-| Plano | Preço inicial | Limites planejados |
-|---|---:|---|
-| Starter | US$ 9,90/mês ou US$ 99,00/ano | 1 profissional e 1 unidade |
-| Pro | A definir | Até 5 profissionais e 1 unidade |
-| Business | A definir | Até 15 profissionais e 3 unidades |
+| Plano | Mensal | Anual | Limites planejados |
+|---|---:|---:|---|
+| Starter | US$ 9,90/mês | US$ 99,00/ano | 1 profissional e 1 unidade |
+| Pro | US$ 19,90/mês | US$ 199,00/ano | Até 5 profissionais e 1 unidade |
+| Business | US$ 39,90/mês | US$ 399,00/ano | Até 15 profissionais e 3 unidades |
 
-Os recursos e limites acima são a proposta inicial e poderão ser ajustados antes do lançamento.
+Os valores anuais equivalem a 10 mensalidades, oferecendo o equivalente a 2 meses sem cobrança em comparação com o pagamento mensal.
+
+Os recursos e limites acima representam a oferta inicial planejada e poderão ser ajustados antes do lançamento.
 
 A assinatura da plataforma será paga pela empresa à DMRJ Scheduling. O cliente final não pagará uma taxa à DMRJ para fazer uma reserva. A cobrança dos serviços ao cliente final será uma configuração independente da assinatura do SaaS.
 
