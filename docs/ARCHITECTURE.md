@@ -47,6 +47,43 @@ O SaaS deverá oferecer dois modos de apresentação e interação:
 
 **Diretriz de produto:** o DMRJ Scheduling deverá ser completo por dentro e fácil de usar por fora. A complexidade técnica deve permanecer nos bastidores sempre que possível.
 
+## Raio-x funcional dos modos Simples e Avançado
+
+**Status:** requisitos de experiência definidos; interface e funcionalidades ainda não implementadas.
+
+A auditoria de produto estabelece que o Modo Simples deve ser completo para a operação diária. Ele não é uma versão reduzida, demonstração ou plano inferior. O Modo Avançado acrescenta profundidade de controle, filtros e personalização, sem retirar do Simples as ferramentas essenciais.
+
+| Área | Modo Simples | Modo Avançado |
+|---|---|---|
+| Calendário | Calendário diário, semanal e mensal, com navegação clara | Mesmas visualizações, com filtros e controles adicionais |
+| Agendamentos | Criar, visualizar, confirmar, cancelar e reagendar | Mesmas ações, com detalhes e ferramentas operacionais adicionais |
+| Horários | Configurar expediente, disponibilidade, pausas e folgas | Regras detalhadas, exceções e controles adicionais |
+| Profissionais | Cadastrar, editar e visualizar a equipe | Permissões e configurações detalhadas da equipe |
+| Serviços | Cadastrar serviços, duração e preço | Configurações adicionais por serviço, quando suportadas |
+| Clientes | Consultar e atualizar dados necessários | Busca, filtros e histórico mais detalhados |
+| Unidades | Administrar as unidades permitidas pelo plano | Controles detalhados entre unidades |
+| Cancelamento e reagendamento | Configurar os prazos essenciais com valores recomendados | Ajustes e informações adicionais, sem alterar regras silenciosamente |
+| Notificações | Configurações essenciais e status de envio | Preferências e integrações adicionais |
+| Relatórios | Resumo operacional simples, quando implementado | Relatórios, filtros e exportações adicionais, quando implementados |
+| Integrações | Não exigir configuração técnica para operar | Configurar integrações disponíveis, com instruções e avisos de custo |
+
+### Regras para não confundir simplicidade com falta de recursos
+
+1. O calendário e a gestão de horários são obrigatórios no Modo Simples desde o primeiro lançamento funcional.
+2. As visualizações diária, semanal e mensal devem estar disponíveis no Modo Simples. A apresentação poderá ser mais enxuta, mas nenhuma dessas visões essenciais será exclusiva do modo Avançado.
+3. Criar e gerenciar agendamentos, profissionais, serviços e clientes é parte da operação básica e não pode depender da ativação do modo Avançado.
+4. O Modo Simples deve oferecer um caminho principal claro para cada tarefa frequente, com configurações recomendadas e explicações em linguagem comum.
+5. O Modo Avançado pode acrescentar filtros, detalhes, personalizações e ferramentas administrativas, mas não deve ser usado para esconder funções essenciais atrás de uma opção.
+6. Nenhum modo altera permissões, limites de plano, regras de segurança ou acesso aos dados.
+7. Recursos descritos nesta matriz são requisitos planejados, não prova de que já estejam desenvolvidos. Cada item deverá ser implementado e testado antes de ser anunciado como disponível.
+
+### Resultado da auditoria
+
+- **Ponto positivo:** a arquitetura já prevê dois modos, preferência individual, alternância sem perda de configurações e separação entre modo de interface e permissões.
+- **Lacuna encontrada:** a descrição anterior era genérica e não garantia explicitamente calendário, visualizações e gestão de horários no Modo Simples.
+- **Correção de produto:** a matriz acima torna explícito que o Modo Simples inclui calendário diário, semanal e mensal e as funções essenciais de operação.
+- **Situação técnica:** a página atual do projeto é uma landing page com prévia ilustrativa de agenda. Ela não implementa ainda os dois modos, calendário funcional, gestão de horários ou painel operacional.
+
 ## Modelo multiempresa
 
 A arquitetura deverá prever:
