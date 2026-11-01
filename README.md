@@ -35,19 +35,13 @@ A plataforma será multiempresa: cada negócio terá seus próprios dados e conf
 
 Todos os planos terão período de teste gratuito de 7 dias.
 
-| Plano | Preço mensal | Pagamento anual (10 mensalidades) | Acesso no anual | Limites planejados |
+| Plano | Preço mensal | Preço anual (12 meses de acesso) | Economia no anual | Limites planejados |
 |---|---:|---:|---:|---|
-| Starter | US$ 9,90 | US$ 99,00 | 12 meses | 1 profissional e 1 unidade |
-| Pro | US$ 19,90 | US$ 199,00 | 12 meses | Até 5 profissionais e 1 unidade |
-| Business | US$ 39,90 | US$ 399,00 | 12 meses | Até 15 profissionais e 3 unidades |
+| Starter | US$ 9,90 | US$ 99,00 | US$ 19,80 | 1 profissional e 1 unidade |
+| Pro | US$ 19,90 | US$ 199,00 | US$ 39,80 | Até 5 profissionais e 1 unidade |
+| Business | US$ 39,90 | US$ 399,00 | US$ 79,80 | Até 15 profissionais e 3 unidades |
 
-**Oferta anual planejada:** o cliente contrata 12 meses de acesso, paga antecipadamente o valor equivalente a 10 mensalidades e recebe os 2 meses restantes sem cobrança adicional. A comparação considera o preço mensal vigente multiplicado por 12, sem desconto adicional ou benefício oculto.
-
-| Plano | Total em 12 mensalidades | Preço anual | Economia equivalente a 2 meses |
-|---|---:|---:|---:|
-| Starter | US$ 118,80 | US$ 99,00 | US$ 19,80 |
-| Pro | US$ 238,80 | US$ 199,00 | US$ 39,80 |
-| Business | US$ 478,80 | US$ 399,00 | US$ 79,80 |
+**Oferta anual planejada:** a empresa paga antecipadamente o equivalente a 10 mensalidades e recebe 12 meses consecutivos de acesso. Os 2 meses sem cobrança adicional já estão incluídos nesses 12 meses. A economia é calculada comparando o preço anual com 12 mensalidades pelo preço mensal vigente.
 
 ### Comunicação da oferta anual
 
