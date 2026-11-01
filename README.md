@@ -82,14 +82,46 @@ O projeto será desenvolvido considerando, conforme os países e atividades aten
 - SOC 2 como possível avaliação independente para atender requisitos de clientes empresariais.
 - PCI DSS caso o escopo de pagamentos venha a envolver dados de cartões; a utilização de um provedor com checkout hospedado pode reduzir o escopo de responsabilidade.
 
-A menção a normas e padrões indica referências e objetivos de projeto. Não significa que a plataforma já tenha certificação, auditoria concluída ou conformidade legal comprovada. A aplicabilidade deverá ser validada antes de operar em cada mercado, com apoio jurídico e técnico adequado.
+A menção a normas e padrões indica referências e objetivos de projeto. Não significa que a plataforma já tenha certificação, auditoria concluída ou conformidade legal comprovada. A aplicabilidade deverá ser validada antes de operar em cada mercado, com apoio jurídico e técnico adequado quando necessário.
+
+## Política de custos durante o desenvolvimento
+
+**Restrição financeira atual:** o projeto deve avançar sem despesas financeiras neste momento.
+
+- Priorizar ferramentas gratuitas, tecnologias de código aberto e planos gratuitos que permitam o uso pretendido.
+- Antes de recomendar um serviço, verificar se o plano gratuito permite uso comercial e quais são seus limites, condições e restrições.
+- Não contratar planos pagos, domínios adicionais, serviços, APIs, plugins, certificados, auditorias ou consultorias sem apresentar previamente o custo e obter aprovação expressa do proprietário do projeto.
+- Não ativar testes que exijam cartão de crédito ou possam gerar cobrança automática sem autorização expressa.
+- Não presumir que hospedagem, banco de dados, e-mail, armazenamento, tráfego ou serviços de terceiros permanecerão gratuitos quando o SaaS crescer.
+- Manter uma lista de dependências externas, limites gratuitos, riscos de cobrança e alternativas.
+- Se uma exigência legal, técnica ou comercial não puder ser atendida sem custo, registrar a pendência e explicar as opções antes de prosseguir. Não afirmar que a exigência foi cumprida enquanto estiver pendente.
+- Certificações pagas e auditorias formais não fazem parte da etapa inicial sem orçamento aprovado. Aplicar boas práticas desde o desenvolvimento não equivale a possuir certificação.
+
+A restrição de orçamento não elimina obrigações legais. Antes de disponibilizar o SaaS comercialmente em um mercado, será necessário verificar se os requisitos legais, contratuais, fiscais, de segurança e dos fornecedores podem ser atendidos dentro do orçamento disponível.
+
+## Plano de prevenção de bloqueios e preparação para lançamento
+
+O objetivo é reduzir riscos de suspensão por provedores, falhas de segurança, reclamações de privacidade, problemas de pagamento ou descumprimento legal. Não existe garantia de funcionamento sem bloqueios em todos os países.
+
+Antes do lançamento comercial, revisar e documentar:
+
+1. Países e tipos de clientes que serão atendidos.
+2. Termos de uso, política de privacidade, política de cookies e regras de cancelamento.
+3. Papéis de controlador e operador, contratos de tratamento de dados e fornecedores.
+4. Direitos dos titulares, retenção, exclusão e exportação de dados.
+5. Segurança de contas, controle de permissões, isolamento multiempresa e resposta a incidentes.
+6. Backups, restauração, monitoramento e continuidade do serviço.
+7. Regras de consumo, impostos, faturamento e assinaturas de cada mercado.
+8. Condições de uso comercial, limites e políticas dos provedores de hospedagem, banco de dados, e-mail e pagamentos.
+9. Acessibilidade, localização, idiomas, moedas, fusos horários e suporte.
+10. Testes técnicos e revisão jurídica adequada aos mercados escolhidos.
 
 ## Arquitetura técnica planejada
 
 - **Next.js e TypeScript:** aplicação web.
 - **Supabase e PostgreSQL:** banco de dados, autenticação e políticas de acesso.
 - **GitHub:** versionamento do código.
-- **Vercel:** opção planejada para hospedagem e publicação.
+- **Vercel:** opção planejada para hospedagem e publicação, sujeita à verificação das condições comerciais e limites do plano escolhido.
 
 A integração de pagamentos e assinaturas será definida em uma etapa posterior. Nenhum provedor de pagamento está integrado neste momento.
 
