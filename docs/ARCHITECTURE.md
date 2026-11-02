@@ -15,7 +15,11 @@ A separação entre empresas deverá ser aplicada no servidor e no banco de dado
 - **GitHub:** versionamento do código.
 - **Vercel:** opção de hospedagem e publicação, sujeita à verificação das condições comerciais, uso comercial permitido e limites do plano escolhido.
 
-A escolha final deverá considerar segurança, manutenção, portabilidade, limites gratuitos e custos quando o produto crescer. Nenhum serviço deve ser contratado sem avaliação prévia das condições.
+A integração inicial com Supabase Auth e PostgreSQL foi adicionada ao repositório. Ela inclui clientes de navegador e servidor com sessões em cookies, atualização de sessão no middleware, callback de confirmação de e-mail e proteção inicial do painel por sessão verificada e vínculo ativo com uma empresa. A migration de identidade e empresas está em `supabase/migrations/20261101000100_identity_and_organizations.sql`.
+
+**Ainda pendente:** criar o projeto Supabase, executar a migration, configurar as variáveis de ambiente e testar autenticação e RLS em ambiente real. A estrutura inicial não representa a implementação completa de permissões nem o provisionamento do administrador global. Consulte [Configuração do Supabase](SUPABASE_SETUP.md).
+
+A escolha e operação dos serviços deverão considerar segurança, manutenção, portabilidade, limites gratuitos e custos quando o produto crescer. Nenhum serviço deve ser contratado sem avaliação prévia das condições.
 
 ## Experiência de uso: modo Simples e modo Avançado
 
