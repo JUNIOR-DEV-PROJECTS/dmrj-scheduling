@@ -187,3 +187,6 @@ footer p { color: var(--muted); font-size: 11px; }
   .header-login { font-size: 12px; }
   .header-actions .header-link { font-size: 11px; }
 }
+
+.auth-secondary-action { margin-top: 14px; background: #edf4ef; color: var(--green-dark); }
+.auth-secondary-action:hover { background: #e1eee5; }
