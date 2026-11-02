@@ -177,3 +177,13 @@ footer p { color: var(--muted); font-size: 11px; }
   .auth-card { padding: 27px 21px; }
   .auth-brand { margin-bottom: 28px; }
 }
+
+
+.header-actions { display: flex; align-items: center; gap: 22px; }
+.header-login { color: var(--muted); font-size: 14px; font-weight: 700; }
+.header-login:hover { color: var(--green); }
+@media (max-width: 560px) {
+  .header-actions { gap: 13px; }
+  .header-login { font-size: 12px; }
+  .header-actions .header-link { font-size: 11px; }
+}
