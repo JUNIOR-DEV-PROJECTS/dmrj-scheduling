@@ -30,7 +30,8 @@ export default function ResetPasswordPage() {
     setLoading(true);
     try {
       const supabase = createClient();
-      const { data: { claims }, error: claimsError } = await supabase.auth.getClaims();
+      const { data, error: claimsError } = await supabase.auth.getClaims();
+      const claims = data?.claims;
       if (claimsError || !claims?.sub) {
         setNotice("O link de recuperação expirou ou não é válido. Solicite um novo link.");
         return;
