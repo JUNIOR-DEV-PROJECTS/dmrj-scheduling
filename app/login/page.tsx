@@ -3,17 +3,46 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import PasswordInput from "../../components/password-input";
+import { createClient } from "../../lib/supabase/client";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notice, setNotice] = useState("");
+  const [notice, setNotice] = useState(
+    searchParams.get("erro") === "confirmacao"
+      ? "Não foi possível confirmar seu e-mail. Tente entrar novamente ou solicite um novo link."
+      : searchParams.get("erro") === "permissao"
+        ? "Esta conta não possui acesso ativo a uma empresa."
+        : ""
+  );
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setNotice("A tela está pronta, mas o acesso ainda não foi conectado a um sistema de autenticação. Nenhum dado foi enviado ou salvo.");
-    setPassword("");
+    setNotice("");
+    setLoading(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        setNotice("Não foi possível entrar. Confira seu e-mail e senha e tente novamente.");
+        return;
+      }
+
+      setPassword("");
+      router.replace("/painel");
+      router.refresh();
+    } catch {
+      setNotice("O sistema de acesso ainda não está configurado. As credenciais não foram armazenadas.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -30,16 +59,18 @@ export default function LoginPage() {
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
             <label htmlFor="login-email">E-mail</label>
-            <input id="login-email" name="email" type="email" autoComplete="username" placeholder="voce@empresa.com" value={email} onChange={(event) => setEmail(event.target.value)} required />
+            <input id="login-email" name="email" type="email" autoComplete="username" placeholder="voce@empresa.com" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={loading} />
           </div>
-          <PasswordInput id="login-password" label="Senha" value={password} onChange={setPassword} autoComplete="current-password" />
-          <button className="auth-submit" type="submit">Entrar</button>
+          <PasswordInput id="login-password" label="Senha" value={password} onChange={setPassword} autoComplete="current-password" disabled={loading} />
+          <button className="auth-submit" type="submit" disabled={loading}>
+            {loading ? "Entrando..." : "Entrar"}
+          </button>
         </form>
 
         {notice && <p className="auth-notice" role="status">{notice}</p>}
 
         <p className="auth-switch">Ainda não tem uma conta? <Link href="/cadastro/empresa">Cadastre sua empresa</Link></p>
-        <p className="auth-footnote">O acesso de administrador da plataforma também será controlado pelo sistema de permissões, sem opção de escolher ou alterar o próprio nível de acesso nesta tela.</p>
+        <p className="auth-footnote">O nível de acesso é verificado pelo servidor e pelo banco de dados. Não é possível escolher ou alterar o próprio papel nesta tela.</p>
         <Link className="auth-back" href="/">Voltar ao início</Link>
       </section>
     </main>
