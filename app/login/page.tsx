@@ -16,6 +16,7 @@ export default function LoginPage() {
     const error = new URLSearchParams(window.location.search).get("erro");
     if (error === "confirmacao") setNotice("Não foi possível confirmar seu e-mail. Tente entrar novamente ou solicite um novo link.");
     if (error === "permissao") setNotice("Esta conta não possui acesso ativo a uma empresa.");
+    if (error === "config") setNotice("O Supabase ainda não foi configurado para este ambiente.");
   }, []);
   const [loading, setLoading] = useState(false);
 
