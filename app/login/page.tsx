@@ -1,24 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import PasswordInput from "../../components/password-input";
 import { createClient } from "../../lib/supabase/client";
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notice, setNotice] = useState(
-    searchParams.get("erro") === "confirmacao"
-      ? "Não foi possível confirmar seu e-mail. Tente entrar novamente ou solicite um novo link."
-      : searchParams.get("erro") === "permissao"
-        ? "Esta conta não possui acesso ativo a uma empresa."
-        : ""
-  );
+  const [notice, setNotice] = useState("");
+  useEffect(() => {
+    const error = new URLSearchParams(window.location.search).get("erro");
+    if (error === "confirmacao") setNotice("Não foi possível confirmar seu e-mail. Tente entrar novamente ou solicite um novo link.");
+    if (error === "permissao") setNotice("Esta conta não possui acesso ativo a uma empresa.");
+  }, []);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
