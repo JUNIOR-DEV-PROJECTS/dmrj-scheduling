@@ -42,6 +42,8 @@ Em **Authentication → Settings**, configure o tamanho mínimo da senha para pe
 - Desenvolvimento: `http://localhost:3000/auth/callback`
 - Produção: `https://SEU-DOMINIO/auth/callback`
 
+O fluxo de recuperação também utiliza esse callback e redireciona para `/redefinir-senha`. Inclua o endereço de callback na lista permitida. O e-mail de recuperação é solicitado pela tela `/recuperar-senha`.
+
 Inclua os endereços correspondentes na lista de URLs permitidas do Supabase Auth. O endereço de produção deverá ser o domínio real usado pelo projeto.
 
 ## 5. Instalar dependências e testar
