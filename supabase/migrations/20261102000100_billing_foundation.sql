@@ -60,7 +60,7 @@ create table if not exists public.organization_subscriptions (
   amount_minor integer not null check (amount_minor > 0),
   currency char(3) not null default 'USD' check (currency = 'USD'),
   status text not null check (status in ('trialing', 'active', 'past_due', 'paused', 'canceled', 'expired', 'incomplete')),
-  provider text check (provider is null or provider in ('paddle', 'stripe', 'manual')),
+  provider text check (provider is null or char_length(btrim(provider)) between 2 and 40),
   provider_customer_id text,
   provider_subscription_id text,
   trial_starts_at timestamptz,
@@ -88,7 +88,7 @@ create index if not exists organization_subscriptions_org_status_idx
 
 create table if not exists public.billing_webhook_events (
   id uuid primary key default gen_random_uuid(),
-  provider text not null check (provider in ('paddle', 'stripe')),
+  provider text not null check (char_length(btrim(provider)) between 2 and 40),
   provider_event_id text not null,
   event_type text not null,
   payload jsonb not null default '{}'::jsonb,
