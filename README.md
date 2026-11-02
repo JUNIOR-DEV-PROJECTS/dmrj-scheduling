@@ -67,6 +67,8 @@ A arquitetura ainda será detalhada e validada antes da implementação. Consult
 - [Planos e preços](docs/PLANS.md)
 - [Arquitetura técnica](docs/ARCHITECTURE.md)
 - [Configuração do Supabase](docs/SUPABASE_SETUP.md)
+
+A autenticação inicial inclui login, cadastro de empresa, recuperação e redefinição de senha. O fluxo ainda depende da configuração do projeto Supabase e de testes reais.
 - [Esquema do banco de dados](docs/DATABASE_SCHEMA.md)
 - [Privacidade e segurança](docs/PRIVACY-SECURITY.md)
 - [Acessibilidade e localização](docs/ACCESSIBILITY-LOCALIZATION.md)
