@@ -68,6 +68,7 @@ export default function LoginPage() {
 
         {notice && <p className="auth-notice" role="status">{notice}</p>}
 
+        <p className="auth-switch"><Link href="/recuperar-senha">Esqueci minha senha</Link></p>
         <p className="auth-switch">Ainda não tem uma conta? <Link href="/cadastro/empresa">Cadastre sua empresa</Link></p>
         <p className="auth-footnote">O nível de acesso é verificado pelo servidor e pelo banco de dados. Não é possível escolher ou alterar o próprio papel nesta tela.</p>
         <Link className="auth-back" href="/">Voltar ao início</Link>
