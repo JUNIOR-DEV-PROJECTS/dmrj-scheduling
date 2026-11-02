@@ -1,6 +1,6 @@
 # Configuração do Supabase
 
-**Status:** a integração inicial foi adicionada ao código, mas ainda depende da criação e configuração de um projeto Supabase. O login e o cadastro não devem ser considerados ativos até concluir os passos abaixo e testar os fluxos.
+**Status:** o projeto Supabase já foi criado e a migration de identidade/empresas já foi executada. A migration de planos e assinaturas foi adicionada ao repositório, mas ainda precisa ser executada no SQL Editor. O login e o cadastro não devem ser considerados ativos até configurar as variáveis de ambiente e testar os fluxos.
 
 ## 1. Criar o projeto
 
@@ -19,7 +19,16 @@
 
 A migration cria o vínculo inicial de uma empresa com a pessoa que a cadastrou. Ela não cria administradores globais.
 
-## 3. Configurar as variáveis no ambiente da aplicação
+## 3. Criar a estrutura de planos e assinaturas
+
+1. Abra no GitHub o arquivo `supabase/migrations/20261102000100_billing_foundation.sql`.
+2. Copie o conteúdo completo, cole no SQL Editor do Supabase e execute.
+3. Confira se foram criadas as tabelas `billing_plans`, `organization_subscriptions` e `billing_webhook_events`.
+4. Confira os seis preços cadastrados: Starter (US$ 9,90/mês ou US$ 99/ano), Pro (US$ 19,90/mês ou US$ 199/ano) e Business (US$ 39,90/mês ou US$ 399/ano).
+
+A migration cria somente a base de dados. Não inicia testes, não cobra clientes e não conecta nenhum gateway. Os limites e recursos específicos de cada plano permanecem em aberto e não foram inventados. A estrutura não armazena dados de cartão. O provedor de pagamento ainda não foi contratado nem integrado.
+
+## 4. Configurar as variáveis no ambiente da aplicação
 
 1. No Supabase, abra **Project Settings → API** ou **Connect**.
 2. Copie a **Project URL**.
@@ -35,7 +44,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_SUA_CHAVE
 
 O arquivo `.env.local` já está ignorado pelo Git. Nunca publique chaves secretas no repositório.
 
-## 4. Configurar autenticação e confirmação de e-mail
+## 5. Configurar autenticação e confirmação de e-mail
 
 Em **Authentication → Settings**, configure o tamanho mínimo da senha para pelo menos 12 caracteres. Mantenha a confirmação de e-mail habilitada e configure a URL de redirecionamento para o domínio da aplicação:
 
@@ -46,7 +55,7 @@ O fluxo de recuperação também utiliza esse callback e redireciona para `/rede
 
 Inclua os endereços correspondentes na lista de URLs permitidas do Supabase Auth. O endereço de produção deverá ser o domínio real usado pelo projeto.
 
-## 5. Instalar dependências e testar
+## 6. Instalar dependências e testar
 
 No terminal, dentro da pasta do projeto:
 
@@ -76,7 +85,9 @@ Depois, testar:
 
 ## O que ainda não está pronto
 
-- A migration ainda precisa ser executada no projeto Supabase.
+- A migration `20261102000100_billing_foundation.sql` ainda precisa ser executada no projeto Supabase.
+- A integração com um provedor de pagamentos, checkout, webhooks e portal de assinaturas ainda não foi implementada.
+- Os limites e recursos exatos de cada plano ainda precisam ser definidos.
 - As variáveis de ambiente ainda precisam ser configuradas.
 - O fluxo precisa ser executado e testado em ambiente real.
 - Recuperação de senha, convite de funcionários e gestão de membros ainda não foram implementados.
