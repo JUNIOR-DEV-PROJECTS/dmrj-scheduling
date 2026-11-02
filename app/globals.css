@@ -126,3 +126,54 @@ footer p { color: var(--muted); font-size: 11px; }
   .features { padding: 65px 16px; }
   footer { width: calc(100% - 32px); padding: 22px 0; flex-direction: column; align-items: flex-start; }
 }
+
+
+/* Telas de acesso e cadastro */
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 36px 18px;
+  background: radial-gradient(circle at top left, #eaf4ee 0, transparent 38%), var(--background);
+}
+.auth-card {
+  width: min(100%, 470px);
+  padding: 38px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 22px 65px rgba(28, 66, 48, .08);
+}
+.auth-card-wide { width: min(100%, 520px); }
+.auth-brand { margin-bottom: 34px; }
+.auth-card h1 { margin: 12px 0 10px; font-size: clamp(28px, 5vw, 36px); letter-spacing: -1.5px; }
+.auth-intro { margin: 0 0 27px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.auth-form { display: grid; gap: 18px; }
+.auth-field { display: grid; gap: 7px; }
+.auth-field label { color: #344054; font-size: 14px; font-weight: 600; }
+.auth-field input {
+  width: 100%; min-height: 46px; padding: 11px 12px;
+  border: 1px solid #d0d5dd; border-radius: 9px;
+  color: #182230; background: #fff; font-size: 15px;
+}
+.auth-field input:focus, .auth-consent input:focus-visible {
+  outline: 2px solid #78ad96; outline-offset: 2px;
+}
+.auth-submit {
+  min-height: 48px; margin-top: 3px; padding: 12px 18px;
+  border: 0; border-radius: 9px; background: var(--green);
+  color: white; font-size: 14px; font-weight: 700; cursor: pointer;
+}
+.auth-submit:hover { background: var(--green-dark); }
+.auth-consent { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.auth-consent input { margin-top: 2px; accent-color: var(--green); }
+.auth-notice { margin: 18px 0 0; padding: 12px 14px; border-radius: 9px; background: #fff8e8; color: #765515; font-size: 13px; line-height: 1.6; }
+.auth-switch { margin: 24px 0 0; color: var(--muted); text-align: center; font-size: 13px; }
+.auth-switch a { color: var(--green); font-weight: 700; }
+.auth-footnote { margin: 22px 0 0; padding-top: 17px; border-top: 1px solid var(--line); color: #87928c; font-size: 11px; line-height: 1.65; }
+.auth-back { display: inline-block; margin-top: 22px; color: var(--muted); font-size: 12px; }
+.auth-back:hover { color: var(--green); }
+@media (max-width: 520px) {
+  .auth-card { padding: 27px 21px; }
+  .auth-brand { margin-bottom: 28px; }
+}
