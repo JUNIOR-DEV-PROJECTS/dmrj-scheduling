@@ -28,7 +28,7 @@ export default function Home() {
           <a href="#recursos">Recursos</a>
           <a href="#sobre">Sobre</a>
         </nav>
-        <a className="header-link" href="#contato">Conheça a plataforma</a>
+        <div className="header-actions"><a className="header-login" href="/login">Entrar</a><a className="header-link" href="/cadastro/empresa">Cadastrar empresa</a></div>
       </header>
 
       <section className="hero" id="sobre">
@@ -39,7 +39,7 @@ export default function Home() {
             Uma nova forma de gerenciar serviços, profissionais e reservas.
             Simples para sua equipe e prático para seus clientes.
           </p>
-          <a className="primary-button" href="#recursos">Conhecer os recursos <span aria-hidden="true">→</span></a>
+          <a className="primary-button" href="/cadastro/empresa">Começar cadastro <span aria-hidden="true">→</span></a>
           <div className="hero-note">
             <span className="status-dot" />
             <span>Um espaço de agendamento preparado para o mundo.</span>
