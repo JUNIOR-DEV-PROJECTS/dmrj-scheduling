@@ -66,6 +66,7 @@ A arquitetura ainda será detalhada e validada antes da implementação. Consult
 
 - [Planos e preços](docs/PLANS.md)
 - [Arquitetura técnica](docs/ARCHITECTURE.md)
+- [Configuração do Supabase](docs/SUPABASE_SETUP.md)
 - [Esquema do banco de dados](docs/DATABASE_SCHEMA.md)
 - [Privacidade e segurança](docs/PRIVACY-SECURITY.md)
 - [Acessibilidade e localização](docs/ACCESSIBILITY-LOCALIZATION.md)
@@ -73,7 +74,9 @@ A arquitetura ainda será detalhada e validada antes da implementação. Consult
 
 ## Situação atual
 
-**Fase atual: planejamento e estruturação inicial.**
+**Fase atual: fundação técnica em desenvolvimento.**
 
-Este repositório é o ponto de partida do desenvolvimento. As funcionalidades, integrações e controles descritos nos documentos ainda precisam ser implementados, testados e validados. Nenhum provedor de pagamento está integrado e nenhuma cobrança real está ativa.
+A landing page, a interface demonstrativa do painel, as telas de login e cadastro e a integração inicial de autenticação com Supabase estão no repositório. Também existe uma migration inicial para empresas, membros e políticas RLS. Essa migration ainda precisa ser executada no Supabase, e as variáveis de ambiente precisam ser configuradas. O fluxo de autenticação ainda não foi testado em um projeto real.
+
+O painel continua demonstrativo e não está conectado às funções operacionais do SaaS. As demais funcionalidades, integrações e controles ainda precisam ser implementados e testados. Nenhum provedor de pagamento está integrado e nenhuma cobrança real está ativa.
 
