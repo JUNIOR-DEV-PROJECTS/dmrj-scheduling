@@ -35,9 +35,9 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_SUA_CHAVE
 
 O arquivo `.env.local` já está ignorado pelo Git. Nunca publique chaves secretas no repositório.
 
-## 4. Configurar confirmação de e-mail
+## 4. Configurar autenticação e confirmação de e-mail
 
-No Supabase, mantenha a confirmação de e-mail habilitada e configure a URL de redirecionamento para o domínio da aplicação:
+Em **Authentication → Settings**, configure o tamanho mínimo da senha para pelo menos 12 caracteres. Mantenha a confirmação de e-mail habilitada e configure a URL de redirecionamento para o domínio da aplicação:
 
 - Desenvolvimento: `http://localhost:3000/auth/callback`
 - Produção: `https://SEU-DOMINIO/auth/callback`
