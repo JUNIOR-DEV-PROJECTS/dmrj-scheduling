@@ -126,6 +126,49 @@ export default function AppointmentsPage() {
     setNotice("");
     try {
       const supabase = createClient();
+      const weekday = new Date(date + "T12:00:00").getDay();
+      const startMinutes = Number(time.slice(0, 2)) * 60 + Number(time.slice(3, 5));
+      const endMinutes = startMinutes + selectedService.duration_minutes;
+      const minutesOfTime = (value: string) => {
+        const [hours, minutes] = value.slice(0, 5).split(":").map(Number);
+        return hours * 60 + minutes;
+      };
+
+      const [businessHoursResult, professionalHoursResult, holidayResult, blockResult] = await Promise.all([
+        supabase.from("business_hours").select("opens_at, closes_at").eq("organization_id", organizationId).eq("weekday", weekday).eq("active", true),
+        supabase.from("professional_hours").select("starts_at, ends_at").eq("organization_id", organizationId).eq("professional_id", professionalId).eq("weekday", weekday).eq("active", true),
+        supabase.from("schedule_holidays").select("id, name").eq("organization_id", organizationId).eq("holiday_date", date).or("professional_id.is.null,professional_id.eq." + professionalId).limit(1),
+        supabase.from("schedule_blocks").select("id, reason").eq("organization_id", organizationId).lt("starts_at", endIso).gt("ends_at", startIso).or("professional_id.is.null,professional_id.eq." + professionalId).limit(1),
+      ]);
+
+      if (businessHoursResult.error) throw businessHoursResult.error;
+      if (professionalHoursResult.error) throw professionalHoursResult.error;
+      if (holidayResult.error) throw holidayResult.error;
+      if (blockResult.error) throw blockResult.error;
+
+      const withinBusinessHours = (businessHoursResult.data ?? []).some((interval) => startMinutes >= minutesOfTime(interval.opens_at) && endMinutes <= minutesOfTime(interval.closes_at));
+      if (!withinBusinessHours) {
+        setNotice("Esse horário está fora do expediente da empresa ou o expediente desse dia ainda não foi cadastrado.");
+        return;
+      }
+
+      const withinProfessionalHours = (professionalHoursResult.data ?? []).some((interval) => startMinutes >= minutesOfTime(interval.starts_at) && endMinutes <= minutesOfTime(interval.ends_at));
+      if (!withinProfessionalHours) {
+        setNotice("Esse profissional não tem jornada cadastrada que cubra todo o serviço nesse horário.");
+        return;
+      }
+
+      if (holidayResult.data && holidayResult.data.length > 0) {
+        setNotice("Não é possível agendar: " + holidayResult.data[0].name + ".");
+        return;
+      }
+
+      if (blockResult.data && blockResult.data.length > 0) {
+        const reason = blockResult.data[0].reason;
+        setNotice(reason ? "Esse horário está bloqueado: " + reason + "." : "Esse horário está bloqueado para atendimento.");
+        return;
+      }
+
       const { data: conflicts, error: conflictError } = await supabase
         .from("appointments")
         .select("id")
