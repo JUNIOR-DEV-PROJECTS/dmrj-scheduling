@@ -80,8 +80,8 @@ export default function AppointmentsPage() {
 
       const [clientsResult, professionalsResult, servicesResult, appointmentsResult] = await Promise.all([
         supabase.from("clients").select("id, name").eq("organization_id", currentOrganizationId).order("name"),
-        supabase.from("professionals").select("id, name, active").eq("organization_id", currentOrganizationId).eq("active", true).order("name"),
-        supabase.from("services").select("id, name, duration_minutes, price, active").eq("organization_id", currentOrganizationId).eq("active", true).order("name"),
+        supabase.from("professionals").select("id, name, active").eq("organization_id", currentOrganizationId).order("name"),
+        supabase.from("services").select("id, name, duration_minutes, price, active").eq("organization_id", currentOrganizationId).order("name"),
         supabase.from("appointments").select("id, client_id, professional_id, service_id, starts_at, ends_at, status, notes").eq("organization_id", currentOrganizationId).order("starts_at", { ascending: false }).limit(100),
       ]);
       if (clientsResult.error) throw clientsResult.error;
@@ -208,13 +208,13 @@ export default function AppointmentsPage() {
             <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Profissional
               <select required value={professionalId} onChange={(e) => setProfessionalId(e.target.value)} style={field}>
                 <option value="">Selecione um profissional</option>
-                {professionals.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+                {professionals.filter((item) => item.active).map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
               </select>
             </label>
             <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Serviço
               <select required value={serviceId} onChange={(e) => setServiceId(e.target.value)} style={field}>
                 <option value="">Selecione um serviço</option>
-                {services.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.duration_minutes} min · {money(item.price)}</option>)}
+                {services.filter((item) => item.active).map((item) => <option key={item.id} value={item.id}>{item.name} · {item.duration_minutes} min · {money(item.price)}</option>)}
               </select>
             </label>
             <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Data
