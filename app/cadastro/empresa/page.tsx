@@ -50,7 +50,7 @@ export default function BusinessSignupPage() {
       });
 
       if (error) {
-        setNotice("Não foi possível concluir o cadastro. Confira os dados e tente novamente.");
+        setNotice(`Falha no cadastro: ${error.message}`);
         return;
       }
 
@@ -62,8 +62,9 @@ export default function BusinessSignupPage() {
       } else {
         setNotice("Cadastro iniciado! Confira sua caixa de entrada e confirme o e-mail para ativar o acesso.");
       }
-    } catch {
-      setNotice("O sistema de cadastro ainda não está configurado. Nenhuma informação foi armazenada pela aplicação.");
+    } catch (cause) {
+      const message = cause instanceof Error ? cause.message : "Erro inesperado ao iniciar o cadastro.";
+      setNotice(`Falha na conexão com o cadastro: ${message}`);
     } finally {
       setLoading(false);
     }
