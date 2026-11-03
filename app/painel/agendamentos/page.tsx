@@ -54,6 +54,7 @@ export default function AppointmentsPage() {
   const [time, setTime] = useState("09:00");
   const [availableTimes, setAvailableTimes] = useState<string[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const [availabilityNotice, setAvailabilityNotice] = useState("");
   const [notes, setNotes] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -115,6 +116,7 @@ export default function AppointmentsPage() {
     let cancelled = false;
     async function loadAvailableTimes() {
       setAvailabilityLoading(true);
+      setAvailabilityNotice("");
       try {
         const supabase = createClient();
         const weekday = new Date(date + "T12:00:00").getDay();
@@ -124,7 +126,7 @@ export default function AppointmentsPage() {
         const [business, professional, holiday, blocks, booked] = await Promise.all([
           supabase.from("business_hours").select("opens_at, closes_at").eq("organization_id", organizationId).eq("weekday", weekday).eq("active", true),
           supabase.from("professional_hours").select("starts_at, ends_at").eq("organization_id", organizationId).eq("professional_id", professionalId).eq("weekday", weekday).eq("active", true),
-          supabase.from("schedule_holidays").select("id").eq("organization_id", organizationId).eq("holiday_date", date).or("professional_id.is.null,professional_id.eq." + professionalId).limit(1),
+          supabase.from("schedule_holidays").select("id, name").eq("organization_id", organizationId).eq("holiday_date", date).or("professional_id.is.null,professional_id.eq." + professionalId).limit(1),
           supabase.from("schedule_blocks").select("starts_at, ends_at").eq("organization_id", organizationId).lt("starts_at", dayEnd.toISOString()).gt("ends_at", dayStart.toISOString()).or("professional_id.is.null,professional_id.eq." + professionalId),
           supabase.from("appointments").select("starts_at, ends_at").eq("organization_id", organizationId).eq("professional_id", professionalId).neq("status", "cancelled").lt("starts_at", dayEnd.toISOString()).gt("ends_at", dayStart.toISOString()),
         ]);
@@ -134,7 +136,27 @@ export default function AppointmentsPage() {
         if (blocks.error) throw blocks.error;
         if (booked.error) throw booked.error;
         if (holiday.data?.length) {
-          if (!cancelled) setAvailableTimes([]);
+          if (!cancelled) {
+            setAvailableTimes([]);
+            setTime("");
+            setAvailabilityNotice("Não há atendimento nesta data: " + holiday.data[0].name + ".");
+          }
+          return;
+        }
+        if (!business.data?.length) {
+          if (!cancelled) {
+            setAvailableTimes([]);
+            setTime("");
+            setAvailabilityNotice("O expediente da empresa ainda não foi cadastrado para este dia da semana.");
+          }
+          return;
+        }
+        if (!professional.data?.length) {
+          if (!cancelled) {
+            setAvailableTimes([]);
+            setTime("");
+            setAvailabilityNotice("A jornada deste profissional ainda não foi cadastrada para este dia da semana.");
+          }
           return;
         }
         const selectedService = services.find((item) => item.id === serviceId);
@@ -171,11 +193,13 @@ export default function AppointmentsPage() {
         if (!cancelled) {
           setAvailableTimes(options);
           setTime((current) => options.includes(current) ? current : options[0] ?? "");
+          setAvailabilityNotice(options.length ? "" : "Não há horários livres para este profissional nessa data.");
         }
       } catch (error) {
         if (!cancelled) {
           setAvailableTimes([]);
-          setNotice(error instanceof Error ? error.message : "Não foi possível consultar os horários disponíveis.");
+          setTime("");
+          setAvailabilityNotice(error instanceof Error ? error.message : "Não foi possível consultar os horários disponíveis.");
         }
       } finally {
         if (!cancelled) setAvailabilityLoading(false);
@@ -227,6 +251,11 @@ export default function AppointmentsPage() {
       if (holidayResult.error) throw holidayResult.error;
       if (blockResult.error) throw blockResult.error;
 
+      if (holidayResult.data && holidayResult.data.length > 0) {
+        setNotice("Não é possível agendar: " + holidayResult.data[0].name + ".");
+        return;
+      }
+
       const withinBusinessHours = (businessHoursResult.data ?? []).some((interval) => startMinutes >= minutesOfTime(interval.opens_at) && endMinutes <= minutesOfTime(interval.closes_at));
       if (!withinBusinessHours) {
         setNotice("Esse horário está fora do expediente da empresa ou o expediente desse dia ainda não foi cadastrado.");
@@ -236,11 +265,6 @@ export default function AppointmentsPage() {
       const withinProfessionalHours = (professionalHoursResult.data ?? []).some((interval) => startMinutes >= minutesOfTime(interval.starts_at) && endMinutes <= minutesOfTime(interval.ends_at));
       if (!withinProfessionalHours) {
         setNotice("Esse profissional não tem jornada cadastrada que cubra todo o serviço nesse horário.");
-        return;
-      }
-
-      if (holidayResult.data && holidayResult.data.length > 0) {
-        setNotice("Não é possível agendar: " + holidayResult.data[0].name + ".");
         return;
       }
 
@@ -319,6 +343,7 @@ export default function AppointmentsPage() {
         </header>
 
         {notice && <p role="status" style={{ background: "#eef4ff", color: "#244a86", borderRadius: 10, padding: 12, fontSize: 14 }}>{notice}</p>}
+        {availabilityNotice && <p role="status" style={{ background: "#fff4e5", color: "#8a4b10", borderRadius: 10, padding: 12, fontSize: 14 }}>{availabilityNotice}</p>}
 
         <form onSubmit={createAppointment} style={{ ...card, display: "grid", gap: 14, marginBottom: 18 }}>
           <h2 style={{ margin: 0, fontSize: 18 }}>Novo agendamento</h2>
