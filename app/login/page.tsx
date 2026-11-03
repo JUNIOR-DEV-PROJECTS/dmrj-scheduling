@@ -30,15 +30,17 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
-        setNotice("Não foi possível entrar. Confira seu e-mail e senha e tente novamente.");
+        const diagnosticCode = error.code || (error.status ? `http_${error.status}` : "auth_error");
+        setNotice(`O Supabase recusou o acesso. Confira e-mail e senha. Código técnico: ${diagnosticCode}`);
         return;
       }
 
       setPassword("");
       router.replace("/painel");
       router.refresh();
-    } catch {
-      setNotice("O sistema de acesso ainda não está configurado. As credenciais não foram armazenadas.");
+    } catch (cause) {
+      const diagnosticMessage = cause instanceof Error ? cause.message : "Erro inesperado";
+      setNotice(`Falha técnica no login: ${diagnosticMessage}. As credenciais não foram armazenadas.`);
     } finally {
       setLoading(false);
     }
