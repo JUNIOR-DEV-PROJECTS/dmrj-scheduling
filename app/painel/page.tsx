@@ -104,7 +104,7 @@ export default function PainelPage() {
           <p style={{ color: "#b8c4d8", fontSize: 12, marginTop: 8 }}>PAINEL DA EMPRESA</p>
           <nav style={{ display: "grid", gap: 7, marginTop: 34 }}>
             {["Agenda", "Agendamentos", "Clientes", "Profissionais", "Serviços", "Configurações"].map((item, index) => (
-              <a key={item} href={index === 0 ? "#agenda" : index === 2 ? "/painel/clientes" : index === 3 ? "/painel/profissionais" : index === 4 ? "/painel/servicos" : "#em-breve"} onClick={index === 0 || index === 2 || index === 3 || index === 4 ? undefined : (event) => { event.preventDefault(); setNotice(item + ": esta área será construída nas próximas etapas."); }} style={{ color: index === 0 ? "#172746" : "#dce5f5", background: index === 0 ? "#ffffff" : "transparent", borderRadius: 9, padding: "11px 12px", textDecoration: "none", fontSize: 14 }}>
+              <a key={item} href={index === 0 ? "#agenda" : index === 1 ? "/painel/agendamentos" : index === 2 ? "/painel/clientes" : index === 3 ? "/painel/profissionais" : index === 4 ? "/painel/servicos" : "#em-breve"} onClick={index === 0 || index === 1 || index === 2 || index === 3 || index === 4 ? undefined : (event) => { event.preventDefault(); setNotice(item + ": esta área será construída nas próximas etapas."); }} style={{ color: index === 0 ? "#172746" : "#dce5f5", background: index === 0 ? "#ffffff" : "transparent", borderRadius: 9, padding: "11px 12px", textDecoration: "none", fontSize: 14 }}>
                 {item}
               </a>
             ))}
