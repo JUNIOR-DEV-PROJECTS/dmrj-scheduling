@@ -9,6 +9,7 @@ type Professional = { id: string; name: string; active: boolean };
 type Service = { id: string; name: string; duration_minutes: number; price: number; active: boolean };
 type Appointment = {
   id: string;
+  public_token: string;
   client_id: string;
   professional_id: string;
   service_id: string;
@@ -85,7 +86,7 @@ export default function AppointmentsPage() {
         supabase.from("clients").select("id, name").eq("organization_id", currentOrganizationId).order("name"),
         supabase.from("professionals").select("id, name, active").eq("organization_id", currentOrganizationId).order("name"),
         supabase.from("services").select("id, name, duration_minutes, price, active").eq("organization_id", currentOrganizationId).order("name"),
-        supabase.from("appointments").select("id, client_id, professional_id, service_id, starts_at, ends_at, status, notes").eq("organization_id", currentOrganizationId).order("starts_at", { ascending: false }).limit(100),
+        supabase.from("appointments").select("id, public_token, client_id, professional_id, service_id, starts_at, ends_at, status, notes").eq("organization_id", currentOrganizationId).order("starts_at", { ascending: false }).limit(100),
       ]);
       if (clientsResult.error) throw clientsResult.error;
       if (professionalsResult.error) throw professionalsResult.error;
@@ -298,7 +299,7 @@ export default function AppointmentsPage() {
         ends_at: endIso,
         status: "pending",
         notes: notes.trim() || null,
-      }).select("id, client_id, professional_id, service_id, starts_at, ends_at, status, notes").single();
+      }).select("id, public_token, client_id, professional_id, service_id, starts_at, ends_at, status, notes").single();
       if (error) {
         if (error.code === "23P01" || error.message?.includes("appointments_no_professional_overlap")) {
           setNotice("Esse profissional acabou de receber outro agendamento nesse horário. Escolha um horário diferente.");
@@ -323,7 +324,7 @@ export default function AppointmentsPage() {
       .update({ status })
       .eq("id", appointment.id)
       .eq("organization_id", organizationId)
-      .select("id, client_id, professional_id, service_id, starts_at, ends_at, status, notes")
+      .select("id, public_token, client_id, professional_id, service_id, starts_at, ends_at, status, notes")
       .single();
     if (error) {
       setNotice(error.message);
@@ -331,6 +332,16 @@ export default function AppointmentsPage() {
     }
     setAppointments((current) => current.map((item) => item.id === data.id ? data as Appointment : item));
     setNotice("Status atualizado.");
+  }
+
+  async function copyClientLink(token: string) {
+    const url = `${window.location.origin}/consulta/${token}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setNotice("Link privado copiado. Envie somente ao cliente deste agendamento.");
+    } catch {
+      setNotice("Não foi possível copiar automaticamente. Copie este link: " + url);
+    }
   }
 
   const card: React.CSSProperties = { background: "#fff", border: "1px solid #e8eaf0", borderRadius: 16, padding: 20 };
@@ -418,6 +429,9 @@ export default function AppointmentsPage() {
                     <span style={{ display: "block", color: "#667085", fontSize: 13, marginTop: 3 }}>{service?.name ?? "Serviço"} · {professional?.name ?? "Profissional"}</span>
                     <span style={{ display: "block", color: "#475467", fontSize: 13, marginTop: 4 }}>{dateTimeLabel(item.starts_at)} até {new Date(item.ends_at).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}</span>
                     {item.notes && <span style={{ display: "block", color: "#667085", fontSize: 12, marginTop: 4 }}>{item.notes}</span>}
+                    <button type="button" onClick={() => void copyClientLink(item.public_token)} style={{ marginTop: 9, border: "1px solid #cbd5e1", borderRadius: 8, background: "#f8fafc", padding: "8px 10px", color: "#243b70", fontSize: 12, fontWeight: 600, cursor: "pointer", textAlign: "left" }}>
+                      Copiar link privado do cliente
+                    </button>
                   </div>
                   <div style={{ display: "grid", gap: 6, minWidth: 155 }}>
                     <strong style={{ fontSize: 12, color: item.status === "confirmed" ? "#187245" : item.status === "cancelled" ? "#b42318" : "#8a5a00" }}>{statusLabels[item.status]}</strong>

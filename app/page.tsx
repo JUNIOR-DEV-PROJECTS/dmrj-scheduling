@@ -6,8 +6,8 @@ const highlights = [
   },
   {
     number: "02",
-    title: "Reservas online",
-    description: "Seus clientes poderão escolher serviços e horários sem precisar criar uma conta.",
+    title: "Link privado para clientes",
+    description: "Compartilhe um link individual para o cliente consultar os detalhes do próprio agendamento.",
   },
   {
     number: "03",
@@ -63,7 +63,7 @@ export default function Home() {
             <div className="schedule-item"><span className="schedule-time">10:30</span><span className="schedule-color color-two" /><span><strong>Consulta</strong><small>Serviço de exemplo</small></span><span className="schedule-state">Confirmado</span></div>
             <div className="schedule-item"><span className="schedule-time">13:00</span><span className="schedule-color color-three" /><span><strong>Reunião</strong><small>Serviço de exemplo</small></span><span className="schedule-state">Pendente</span></div>
           </div>
-          <p className="preview-disclaimer">Prévia ilustrativa. As funções ainda estão em desenvolvimento.</p>
+          <p className="preview-disclaimer">Prévia ilustrativa da plataforma.</p>
         </div>
       </section>
 
