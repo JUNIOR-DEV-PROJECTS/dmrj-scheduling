@@ -78,7 +78,7 @@ A autenticação inicial inclui login, cadastro de empresa, recuperação e rede
 
 **Fase atual: fundação técnica em desenvolvimento.**
 
-A landing page, a interface demonstrativa do painel, as telas de login e cadastro e a integração inicial de autenticação com Supabase estão no repositório. Também existe uma migration inicial para empresas, membros e políticas RLS. Essa migration ainda precisa ser executada no Supabase, e as variáveis de ambiente precisam ser configuradas. O fluxo de autenticação ainda não foi testado em um projeto real.
+A landing page, a interface demonstrativa do painel, as telas de login e cadastro e a integração inicial de autenticação com Supabase estão no repositório. As migrations iniciais de identidade, empresas e estrutura de cobrança já foram executadas no Supabase. As variáveis de ambiente do projeto estão configuradas no Netlify. O fluxo de autenticação ainda precisa ser validado com um teste real de cadastro e login.
 
 O painel continua demonstrativo e não está conectado às funções operacionais do SaaS. As demais funcionalidades, integrações e controles ainda precisam ser implementados e testados. Nenhum provedor de pagamento está integrado e nenhuma cobrança real está ativa.
 
