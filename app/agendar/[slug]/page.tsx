@@ -20,13 +20,16 @@ type PublicData = {
 };
 type Slot = { slot_time: string };
 
-function todayLocal() {
-  const now = new Date();
-  return [
-    now.getFullYear(),
-    String(now.getMonth() + 1).padStart(2, "0"),
-    String(now.getDate()).padStart(2, "0"),
-  ].join("-");
+function todayLocal(timeZone = "America/Sao_Paulo") {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const part = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((item) => item.type === type)?.value ?? "";
+  return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
 export default function PublicBookingPage() {
@@ -143,16 +146,21 @@ export default function PublicBookingPage() {
       setSuccess(true);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Não foi possível enviar sua solicitação. Tente outro horário.");
-      const supabase = createClient();
-      const { data } = await supabase.rpc("get_public_available_slots", {
-        p_slug: slug,
-        p_service_id: serviceId,
-        p_professional_id: professionalId,
-        p_date: date,
-      });
-      const refreshed = ((data ?? []) as Slot[]).map((item) => item.slot_time);
-      setSlots(refreshed);
-      setTime(refreshed.includes(time) ? time : refreshed[0] ?? "");
+      try {
+        const supabase = createClient();
+        const { data } = await supabase.rpc("get_public_available_slots", {
+          p_slug: slug,
+          p_service_id: serviceId,
+          p_professional_id: professionalId,
+          p_date: date,
+        });
+        const refreshed = ((data ?? []) as Slot[]).map((item) => item.slot_time);
+        setSlots(refreshed);
+        setTime(refreshed.includes(time) ? time : refreshed[0] ?? "");
+      } catch {
+        setSlots([]);
+        setTime("");
+      }
     } finally {
       setSaving(false);
     }
@@ -224,7 +232,7 @@ export default function PublicBookingPage() {
 
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                     <label style={labelStyle}>Data
-                      <input type="date" min={todayLocal()} required value={date} onChange={(event) => setDate(event.target.value)} style={inputStyle} />
+                      <input type="date" min={todayLocal(publicData?.timezone)} required value={date} onChange={(event) => setDate(event.target.value)} style={inputStyle} />
                     </label>
                     <label style={labelStyle}>Horário
                       <select required disabled={slotsLoading || slots.length === 0} value={time} onChange={(event) => setTime(event.target.value)} style={inputStyle}>
