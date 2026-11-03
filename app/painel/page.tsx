@@ -201,6 +201,7 @@ export default function PainelPage() {
               ["Clientes", "/painel/clientes"],
               ["Profissionais", "/painel/profissionais"],
               ["Serviços", "/painel/servicos"],
+              ["Horários", "/painel/horarios"],
             ].map(([label, href], index) => (
               <Link key={href} href={href} style={{ color: index === 0 ? "#172746" : "#dce5f5", background: index === 0 ? "#fff" : "transparent", borderRadius: 9, padding: "11px 12px", textDecoration: "none", fontSize: 14 }}>{label}</Link>
             ))}
