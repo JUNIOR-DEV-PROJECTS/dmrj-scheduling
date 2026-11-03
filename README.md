@@ -6,30 +6,31 @@ Plataforma SaaS de agendamento online para empresas de serviços.
 
 O DMRJ Scheduling está sendo planejado para salões, clínicas, spas, consultórios e outros negócios que precisam organizar serviços, profissionais, horários e reservas em um ambiente próprio.
 
-A plataforma será multiempresa. Cada negócio terá seus próprios dados e configurações, com acesso controlado por função e empresa.
+A plataforma é estruturada para múltiplas empresas. Cada negócio terá seus próprios dados e configurações, com acesso controlado por empresa.
 
-## Tipos de acesso previstos
+## Tipos de acesso
 
-- **Administrador da plataforma:** gerencia o SaaS, empresas assinantes e planos.
-- **Administrador da empresa:** gerencia sua empresa, unidades, serviços, equipe e agenda.
-- **Funcionários:** acessam somente os recursos permitidos por suas permissões.
-- **Clientes finais:** poderão agendar sem criar uma conta, informando apenas os dados necessários para a reserva.
+- **Administrador da empresa:** gerencia dados, equipe, serviços, horários e agendamentos.
+- **Cliente final:** não cria conta e não faz reservas pela plataforma. A empresa cadastra o agendamento e compartilha um link individual para o cliente consultar os próprios dados.
 
-## Funcionalidades planejadas
+## Funcionalidades já presentes no código
 
-- Página pública de agendamento para cada empresa.
-- Cadastro e gestão de serviços, profissionais e horários.
-- Confirmação de reservas.
-- Proteção contra reservas duplicadas, inclusive em solicitações simultâneas.
-- Gestão de clientes e histórico de agendamentos.
-- Painel administrativo e relatórios.
-- Suporte a múltiplas empresas e unidades.
-- Interface inicial em português, inglês e espanhol.
-- Preferência de idioma e modos claro, escuro e automático.
-- Configuração de fuso horário e moeda por empresa ou unidade, conforme aplicável.
-- Assinaturas dos planos do SaaS.
+- Cadastro de empresa e autenticação com Supabase.
+- Gestão de clientes, profissionais e serviços.
+- Criação e gestão de agendamentos pela empresa.
+- Cadastro de expediente da empresa e jornada dos profissionais.
+- Bloqueios de horários e feriados.
+- Verificação de disponibilidade e prevenção de conflitos de horários.
+- Link privado individual para consulta do agendamento pelo cliente, após aplicar a migration correspondente no Supabase.
 
-As funcionalidades acima são planejadas e ainda não devem ser consideradas implementadas.
+A publicação do código mais recente depende da disponibilidade de créditos de produção da hospedagem. A compilação do commit de links privados passou no GitHub Actions, mas isso não significa que a versão já esteja publicada ou testada no endereço público.
+
+## Fora do escopo imediato
+
+- Reserva pública feita diretamente pelo cliente.
+- Cadastro ou painel de conta para clientes.
+- Notificações automáticas por e-mail ou WhatsApp.
+- Cobrança real de assinaturas até que o provedor de pagamento seja escolhido, configurado e testado.
 
 ## Resumo dos planos planejados
 
@@ -78,7 +79,5 @@ A autenticação inicial inclui login, cadastro de empresa, recuperação e rede
 
 **Fase atual: fundação técnica em desenvolvimento.**
 
-A landing page, a interface demonstrativa do painel, as telas de login e cadastro e a integração inicial de autenticação com Supabase estão no repositório. As migrations iniciais de identidade, empresas e estrutura de cobrança já foram executadas no Supabase. As variáveis de ambiente do projeto estão configuradas no Netlify. O fluxo de autenticação ainda precisa ser validado com um teste real de cadastro e login.
-
-O painel continua demonstrativo e não está conectado às funções operacionais do SaaS. As demais funcionalidades, integrações e controles ainda precisam ser implementados e testados. Nenhum provedor de pagamento está integrado e nenhuma cobrança real está ativa.
+As telas de cadastro e login, o painel e as áreas operacionais de clientes, profissionais, serviços, horários e agendamentos estão no repositório e conectadas ao Supabase. A migration de links privados foi adicionada ao GitHub, mas ainda precisa ser aplicada no Supabase. O último commit de links privados passou na compilação do GitHub Actions. A versão mais recente ainda depende de publicação e testes no ambiente hospedado. Nenhum provedor de pagamento está integrado e nenhuma cobrança real está ativa.
 
