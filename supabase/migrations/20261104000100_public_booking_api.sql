@@ -130,7 +130,7 @@ begin
   end if;
 
   return query
-  select to_char(g.slot_start, 'HH24:MI')
+  select to_char(g.slot_time, 'HH24:MI')
   from (
     select
       pg_catalog.make_time(n.minute_of_day / 60, n.minute_of_day % 60, 0) as slot_time,
@@ -234,6 +234,23 @@ begin
 
   if v_duration is null then
     raise exception 'Serviço indisponível.';
+  end if;
+
+  if (
+    select count(*)
+    from public.appointments a
+    join public.clients c
+      on c.organization_id = a.organization_id
+     and c.id = a.client_id
+    where a.organization_id = v_org.id
+      and a.created_at > pg_catalog.now() - interval '24 hours'
+      and (
+        lower(c.email) = lower(btrim(p_email))
+        or regexp_replace(c.phone, '[^0-9]', '', 'g') =
+           regexp_replace(btrim(p_phone), '[^0-9]', '', 'g')
+      )
+  ) >= 5 then
+    raise exception 'Limite diário de solicitações atingido. Tente novamente mais tarde.';
   end if;
 
   v_start := (p_date + p_time) at time zone v_org.timezone_name;
