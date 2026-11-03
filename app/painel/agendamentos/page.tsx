@@ -52,6 +52,8 @@ export default function AppointmentsPage() {
   const [serviceId, setServiceId] = useState("");
   const [date, setDate] = useState(localDateValue);
   const [time, setTime] = useState("09:00");
+  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [notes, setNotes] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -104,6 +106,85 @@ export default function AppointmentsPage() {
   }
 
   useEffect(() => { void loadData(); }, []);
+
+  useEffect(() => {
+    if (!organizationId || !professionalId || !serviceId || !date) {
+      setAvailableTimes([]);
+      return;
+    }
+    let cancelled = false;
+    async function loadAvailableTimes() {
+      setAvailabilityLoading(true);
+      try {
+        const supabase = createClient();
+        const weekday = new Date(date + "T12:00:00").getDay();
+        const dayStart = new Date(date + "T00:00:00");
+        const dayEnd = new Date(dayStart);
+        dayEnd.setDate(dayEnd.getDate() + 1);
+        const [business, professional, holiday, blocks, booked] = await Promise.all([
+          supabase.from("business_hours").select("opens_at, closes_at").eq("organization_id", organizationId).eq("weekday", weekday).eq("active", true),
+          supabase.from("professional_hours").select("starts_at, ends_at").eq("organization_id", organizationId).eq("professional_id", professionalId).eq("weekday", weekday).eq("active", true),
+          supabase.from("schedule_holidays").select("id").eq("organization_id", organizationId).eq("holiday_date", date).or("professional_id.is.null,professional_id.eq." + professionalId).limit(1),
+          supabase.from("schedule_blocks").select("starts_at, ends_at").eq("organization_id", organizationId).lt("starts_at", dayEnd.toISOString()).gt("ends_at", dayStart.toISOString()).or("professional_id.is.null,professional_id.eq." + professionalId),
+          supabase.from("appointments").select("starts_at, ends_at").eq("organization_id", organizationId).eq("professional_id", professionalId).neq("status", "cancelled").lt("starts_at", dayEnd.toISOString()).gt("ends_at", dayStart.toISOString()),
+        ]);
+        if (business.error) throw business.error;
+        if (professional.error) throw professional.error;
+        if (holiday.error) throw holiday.error;
+        if (blocks.error) throw blocks.error;
+        if (booked.error) throw booked.error;
+        if (holiday.data?.length) {
+          if (!cancelled) setAvailableTimes([]);
+          return;
+        }
+        const selectedService = services.find((item) => item.id === serviceId);
+        if (!selectedService) {
+          if (!cancelled) setAvailableTimes([]);
+          return;
+        }
+        const toMinutes = (value: string) => {
+          const parts = value.slice(0, 5).split(":").map(Number);
+          return parts[0] * 60 + parts[1];
+        };
+        const busy = [...(blocks.data ?? []), ...(booked.data ?? [])].map((item) => ({
+          start: new Date(item.starts_at).getTime(),
+          end: new Date(item.ends_at).getTime(),
+        }));
+        const options: string[] = [];
+        for (let startMinute = 0; startMinute < 1440; startMinute += 15) {
+          const endMinute = startMinute + selectedService.duration_minutes;
+          const inBusiness = (business.data ?? []).some((item) =>
+            startMinute >= toMinutes(item.opens_at) && endMinute <= toMinutes(item.closes_at)
+          );
+          const inProfessional = (professional.data ?? []).some((item) =>
+            startMinute >= toMinutes(item.starts_at) && endMinute <= toMinutes(item.ends_at)
+          );
+          if (!inBusiness || !inProfessional) continue;
+          const hour = String(Math.floor(startMinute / 60)).padStart(2, "0");
+          const minute = String(startMinute % 60).padStart(2, "0");
+          const startAt = new Date(date + "T" + hour + ":" + minute + ":00");
+          const endAt = new Date(startAt.getTime() + selectedService.duration_minutes * 60000);
+          if (startAt.getTime() <= Date.now()) continue;
+          if (busy.some((item) => startAt.getTime() < item.end && endAt.getTime() > item.start)) continue;
+          options.push(hour + ":" + minute);
+        }
+        if (!cancelled) {
+          setAvailableTimes(options);
+          setTime((current) => options.includes(current) ? current : options[0] ?? "");
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setAvailableTimes([]);
+          setNotice(error instanceof Error ? error.message : "Não foi possível consultar os horários disponíveis.");
+        }
+      } finally {
+        if (!cancelled) setAvailabilityLoading(false);
+      }
+    }
+    void loadAvailableTimes();
+    return () => { cancelled = true; };
+  }, [organizationId, professionalId, serviceId, date, services]);
+
 
   async function createAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -263,8 +344,11 @@ export default function AppointmentsPage() {
             <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Data
               <input type="date" required min={localDateValue()} value={date} onChange={(e) => setDate(e.target.value)} style={field} />
             </label>
-            <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Horário
-              <input type="time" required value={time} onChange={(e) => setTime(e.target.value)} style={field} />
+            <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Horário disponível
+              <select required value={time} onChange={(e) => setTime(e.target.value)} style={field} disabled={availabilityLoading || availableTimes.length === 0}>
+                <option value="">{availabilityLoading ? "Consultando horários..." : "Selecione um horário"}</option>
+                {availableTimes.map((item) => <option key={item} value={item}>{item}</option>)}
+              </select>
             </label>
           </div>
           <label style={{ display: "grid", gap: 6, fontSize: 13 }}>Observações (opcional)
