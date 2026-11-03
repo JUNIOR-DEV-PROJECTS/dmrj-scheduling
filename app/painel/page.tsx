@@ -126,6 +126,10 @@ export default function PainelPage() {
 
   useEffect(() => { void loadDashboard(); }, []);
 
+  function changeDate(amount: number) {
+    setSelectedDate((current) => shiftDate(current, amount));
+  }
+
   const filteredAppointments = useMemo(() => appointments.filter((item) =>
     professionalId === "all" || item.professional_id === professionalId
   ), [appointments, professionalId]);
