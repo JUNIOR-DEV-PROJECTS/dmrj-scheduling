@@ -299,7 +299,13 @@ export default function AppointmentsPage() {
         status: "pending",
         notes: notes.trim() || null,
       }).select("id, client_id, professional_id, service_id, starts_at, ends_at, status, notes").single();
-      if (error) throw error;
+      if (error) {
+        if (error.code === "23P01" || error.message?.includes("appointments_no_professional_overlap")) {
+          setNotice("Esse profissional acabou de receber outro agendamento nesse horário. Escolha um horário diferente.");
+          return;
+        }
+        throw error;
+      }
       setAppointments((current) => [data as Appointment, ...current]);
       setNotes("");
       setNotice("Agendamento salvo com sucesso.");
