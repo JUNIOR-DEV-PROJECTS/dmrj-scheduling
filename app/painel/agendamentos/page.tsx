@@ -94,8 +94,8 @@ export default function AppointmentsPage() {
       setServices(servicesResult.data ?? []);
       setAppointments((appointmentsResult.data ?? []) as Appointment[]);
       setClientId((current) => current || clientsResult.data?.[0]?.id || "");
-      setProfessionalId((current) => current || professionalsResult.data?.[0]?.id || "");
-      setServiceId((current) => current || servicesResult.data?.[0]?.id || "");
+      setProfessionalId((current) => current || professionalsResult.data?.find((item) => item.active)?.id || "");
+      setServiceId((current) => current || servicesResult.data?.find((item) => item.active)?.id || "");
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Não foi possível carregar os agendamentos.");
     } finally {
